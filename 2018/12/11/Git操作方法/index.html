@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Git操作方法 - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git工作流程"><span class="toc-text">Git工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git命令"><span class="toc-text">Git命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传本地仓库到GitHub"><span class="toc-text">上传本地仓库到GitHub</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Git操作方法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-12-11 21:08:31</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Practical Method" title="Practical Method">Practical Method</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h3><p>Git有4个重要名词：</p>
+<ul>
+<li>Workspace 工作区</li>
+<li>Index / Stage 暂存区</li>
+<li>Repository 本地仓库</li>
+<li>Remote 远程仓库</li>
+</ul>
+<p><strong>工作区</strong></p>
+<p>拷贝远程仓库的一个分支，并在此分支上进行开发，是最新的。开发工作就是对工作区进行的操作。</p>
+<p><strong>暂存区</strong></p>
+<p>通过<code>git add</code>命令添加文件的相关信息，如文件名、大小等，并不保存文件实体，只是通过序号指向每个文件，保存在<code>.git</code>目录下的<code>index</code>文件里，任何的开发只有进入此文件内才开始被版本控制。可以使用<code>git status</code>查看暂存区的状态。</p>
+<p><strong>本地仓库</strong></p>
+<p>保存每个分支提交过的各个版本，包含旧版本。可以使用<code>git commit</code>命令同步<code>index</code>里所保存的文件信息到本地仓库。</p>
+<p><strong>远程仓库</strong></p>
+<p>可以使用<code>git push</code>命令将本地仓库与远程仓库进行同步操作，远程仓库可以被多个处于协同关系的本地仓库修改。</p>
+<p><center><img src="/2018/12/11/Git操作方法/relations.png" width="350" height="300" title="四个内容之间的关系"><center></center></center></p>
+<h3 id="Git命令"><a href="#Git命令" class="headerlink" title="Git命令"></a>Git命令</h3><p><code>git clone &lt;url&gt;</code> 克隆远程仓库</p>
+<p><code>git init</code> 初始化本地仓库</p>
+<p><code>git status</code> 查看暂存区状态</p>
+<p><code>git diff</code> 查看变更内容</p>
+<p><code>git add .</code> 将所有改动过的文件进行跟踪（受版本控制）</p>
+<p><code>git add &lt;file&gt;</code> 将制定文件进行跟踪</p>
+<p><code>git mv &lt;old&gt; &lt;new&gt;</code> 将文件进行更名</p>
+<p><code>git rm &lt;file&gt;</code> 删除文件</p>
+<p><code>git rm --cached &lt;file&gt;</code> 将文件停止跟踪但不删除</p>
+<p><code>git commit -m &quot;commit&quot;</code> 提交所有更新后的文件，含备注</p>
+<p><code>git commit --amend</code> 修改最后一次提交</p>
+<p><code>git log</code> 查看提交历史</p>
+<p><code>git log -p &lt;file&gt;</code> 查看指定文件的提交历史</p>
+<p><code>git blame &lt;file&gt;</code> 以列表形式查看指定文件的提交历史</p>
+<p><code>git reset --hard HEAD</code> 撤销工作目录中所有未提交文件的修改内容</p>
+<p><code>git checkout HEAD &lt;file&gt;</code> 撤销指定的未提交文件的修改内容</p>
+<p><code>git revert &lt;commit&gt;</code> 撤销指定的提交</p>
+<p><code>git branch</code> 显示所有本地分支</p>
+<p><code>git checkout &lt;branch / tag&gt;</code> 切换到指定分支或标签</p>
+<p><code>git branch &lt;new branch&gt;</code> 创建新分支</p>
+<p><code>git branch -d &lt;branch&gt;</code> 删除本地分支</p>
+<p><code>git tag</code> 列出所有本地标签</p>
+<p><code>git tag &lt;tag name&gt;</code> 基于最新提交创建标签</p>
+<p><code>git tag -d &lt;tag name&gt;</code> 删除指定标签</p>
+<p><code>git remote -v</code> 查看远程仓库信息</p>
+<p><code>git remote show &lt;remote&gt;</code> 查看指定远程仓库信息</p>
+<p><code>git remote add &lt;remote&gt; &lt;url&gt;</code> 添加远程仓库</p>
+<p><code>git fetch &lt;remote&gt;</code> 从远程仓库获取代码</p>
+<p><code>git pull &lt;remote&gt; &lt;branch&gt;</code> 下载代码并快速合并</p>
+<p><code>git push &lt;remote&gt; &lt;branch&gt;</code> 上传代码并快速合并</p>
+<p><code>git push &lt;remote&gt; :&lt;branch / tag name</code>&gt; 删除远程分支或标签</p>
+<p><code>git push --tags</code> 上传所有标签</p>
+<p>其中：<code>HEAD</code>指向当前分支的最新提交点，<code>add</code>实现将工作区修改的内容提交的暂存区，<code>commit</code>实现将暂存区的内容提交到本地仓库并更改最新提交点，<code>rebase</code>和<code>merge</code>都是实现合并操作，后者会生成一个新节点与旧内容分开，而前者不会，只是将两个分支融合成一个线性的分支，<code>revert</code>和<code>reset</code>都是变更当前指向位置，前者是用一个新提交来消除一个旧提交，而后者是直接删除指定提交。</p>
+<h3 id="上传本地仓库到GitHub"><a href="#上传本地仓库到GitHub" class="headerlink" title="上传本地仓库到GitHub"></a>上传本地仓库到GitHub</h3><p>如何将自己的本地代码上传到GitHub仓库呢？</p>
+<ol>
+<li><p>在本地创建一个目录，执行<code>git init</code>命令，之后会在此目录下创建一个<code>.git</code>文件夹；</p>
+</li>
+<li><p>将所要上传的所有文件放入此文件夹中，并执行<code>git add .</code>命令将所有文件添加到待上传的列表中，<code>.</code>表示当前目录中所有文件，也可以选部分文件；</p>
+</li>
+<li>将待上传的列表文件执行<code>git commit -m &quot;comment&quot;</code>进行确认操作，其中<code>comment</code>是注释语句，可以说明此次上传的意义；</li>
+<li>在GitHub的Repository中找到当前仓库的SSH地址<code>git@github.com:username/repo_name.git</code>，执行<code>git remote add origin SSH_address</code>命令将本地的仓库关联到GitHub的仓库上；</li>
+<li>执行<code>git push -u origin master</code>命令将代码上传到GitHub上。</li>
+</ol>
+<p>若之前在此目录中已经关联过GitHub，则不需要执行第1、4步。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

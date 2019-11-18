@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Accurate Tracking by Overlap Maximization - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创新点"><span class="toc-text">创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#位置估计分支"><span class="toc-text">位置估计分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物体分类分支"><span class="toc-text">物体分类分支</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跟踪过程"><span class="toc-text">跟踪过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Accurate Tracking by Overlap Maximization
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-05-14 14:18:42</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Paper Review" title="Paper Review">Paper Review</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>论文链接：<a href="https://arxiv.org/abs/1811.07628" target="_blank" rel="noopener">Danelljan M, Bhat G, Khan F S, et al. ATOM: Accurate Tracking by Overlap Maximization[J]. arXiv preprint arXiv:1811.07628, 2018.</a></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文的主要思想是通过状态估计网络优化目标位置，提升跟踪精度；通过分类网络区分前景和背景，提升跟踪准确率。前者是通过大规模数据集进行离线训练的，后者是通过改进的GN梯度下降策略在线学习的。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在单目标跟踪领域，最近的改进主要是针对于算法鲁棒性方面，也就是提升了跟踪目标的中心点和类别的预测准确性，但在预测目标框的精确性方面没有太多的进展，只是简单的使用多个尺度系数来找到最适合的尺度框，作为最终的预测尺度。跟踪目标在运动过程中可能会发生姿态变化，物体的长宽比会发生较大的改变，单纯的计算某个尺度系数并不能较好的表示目标的精确位置。</p>
+<p>在本文中尝试将跟踪任务分为物体分类和位置估计两部分，并通过两个网络分支分别计算不同的任务，最后融合这两个任务构建一个全新的多任务跟踪网络模型。本文算法在NFS、UAV123、TrackingNet和VOT2018四个跟踪数据集上进行了实验，成为了新的领头羊，并在UAV123数据集上取得了11%的提升。</p>
+<h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h3><ul>
+<li>离线训练IoU网络，将预测位置框进一步精确</li>
+<li>使用创新的梯度优化策略，提升梯度下降的速度，在线学习基于目标的分类器</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/1.png" width="800" height="500" title="整体网络模型"></center>
+
+<h4 id="位置估计分支"><a href="#位置估计分支" class="headerlink" title="位置估计分支"></a>位置估计分支</h4><p>本文中使用改进IoU-Net来对预测的位置进一步精确，主要分为以下几个部分：</p>
+<ul>
+<li>输入图像的深度特征$ x\in \mathbb{R}^{W\times H\times D} $和标定的目标位置$ B\in \mathbb{R}^4 $$ (Cx/w, Cy/h, \log{w}, \log{h}) $，并使用Precise ROI Pooling层对特征进行池化，该层可视为一个关于坐标值的可微连续函数，因此可以通过最大化IoU目标函数进行优化</li>
+<li>相比于检测任务，跟踪任务的目标类别是未知的，而且在图像中仅有前景和背景两个类别，因此需要对IoU-Net进行改进，使其变为基于目标的位置估计，改进后的结果如图，基本网络为ResNet-18</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/2.png" width="800" height="500" title="位置估计分支"></center>
+
+<ul>
+<li>第一个分支提取第一帧的目标信息，输入图像特征和目标位置，输出modulation vector$ (1\times1\times D_z) $；第二个分支提取当前帧的图像信息，在全连接层之前，要将池化层的输出和上一分支的modulation vector进行channel-wise相乘，得到与第一帧目标信息相关的modulation vector$ (K\times K\times D_z) $，之后再通过一个全连接层得到最终的IoU预测值，即$ IoU(B)=g(c(x_0,B_0)\cdot Z(x,B)) $</li>
+<li>该网络可以使用带有标注信息的视频进行端到端的训练，本文中使用LaSOT、TrackingNet和COCO数据集进行训练，训练时图中reference image为目标大小的25倍，对于每一个图像对，在坐标上加入高斯噪声使其产生16个区域来进行训练，测试图像是在原有目标图像的基础上进行了尺度和位置的随机扰动而进行的</li>
+<li>基础网络ResNet的参数是不变的，使用MSE Loss作为目标函数，batch-size设置为64，并使用Adam梯度优化迭代40个周期，学习率设置为0.01并每隔15个周期学习率变化0.2倍</li>
+</ul>
+<h4 id="物体分类分支"><a href="#物体分类分支" class="headerlink" title="物体分类分支"></a>物体分类分支</h4><p>通过位置估计分支可以得到目标的精确位置，但由于缺乏类别信息，并不能对目标和干扰物进行有效区分，因此需要在线训练一个分类器来完成此任务，主要目的是提供物体的粗略位置，提升网络的辨别能力并最小化错误检测率，尺度为上一帧预测的尺度大小，具体过程如下：</p>
+<ul>
+<li>在第一帧视频图像中，对图像进行旋转、模糊等数据增强方法得到30个训练样本</li>
+<li>设计一个由两层全卷积层组成的分类器，输入为ResNet提取的图像特征，输出为热度图</li>
+</ul>
+<script type="math/tex; mode=display">f(x;\omega)=\phi_2(\omega_2*\phi_1(\omega_1*x))</script><ul>
+<li>损失函数为$ L(\omega)=\sum^m_{j=1}\gamma_j|f(x_j;\omega)-y_j|^2+\sum_k\lambda_k|\omega_k|^2 $，其中$j\in(1,2,…,30),k\in(1,2)$</li>
+<li>由于常规梯度优化方法学习速度较慢，无法满足在线学习和实效性的需求，本文中设计了一种新的梯度优化方法，将上式中的两项用残差来统一表示，转化为$ r_j(\omega)=\sqrt{\gamma_j}(f(x_j;\omega)-y_j),r_{30+k}(\omega)=\sqrt{\lambda_k}\omega_k $</li>
+<li>通过残差表示的方法可以将损失函数转化为$ L(\omega)=|r(\omega)|^2 $，并根据高斯牛顿近似忽略二阶微分可得$ \tilde{L}_\omega\approx L(\omega+\Delta\omega) $，之后在$ \omega+\Delta\omega $处将$ r(\omega) $函数展开，即$ r(\omega+\Delta\omega)\approx r_\omega+J_w\Delta\omega $，这样就可以把损失函数展开，表示为$ \tilde{L}_w=\Delta\omega^TJ_\omega^TJ_\omega\Delta\omega+2\Delta\omega^TJ_\omega^Tr_\omega+r_\omega^Tr_\omega $，此处$ r_\omega=r(\omega),J_\omega=\frac{\partial r}{\partial \omega} $，我们需要的就是通过$ \Delta\omega $来更新参数$ \omega $，这里可以直接求$ L(\omega+\Delta\omega)-L(\omega) $对$ \Delta\omega $的梯度即可，本文中作者采用PyTorch中的反向传播并通过简单的代码巧妙的解决了这一问题，改进的梯度优化策略如下</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/3.png" width="700" height="500" title="改进的梯度优化策略"></center>
+
+<h3 id="跟踪过程"><a href="#跟踪过程" class="headerlink" title="跟踪过程"></a>跟踪过程</h3><p>ATOM算法通过PyTorch实现，在GTX1080的GPU上速度为30fps。</p>
+<p>基本网络ResNet-18为在ImageNet数据集上与训练的网络，使用block3和block4的输出作为图像特征，图像输入尺寸为$ 288\times288 $。</p>
+<p>在物体分类分支中，提取图像特征后，首先经过一个$ 1\times1 $的卷积层使特征降至64维度，以此来减小内存占用和计算量，之后一个卷积层的卷积核为$ 4\times4 $，并使用PELU$ =\begin{cases} t &amp; t\ge0 \\ \alpha(e^{\frac{t}{\alpha}}-1) &amp; t&lt;0 \end{cases}$激活函数。</p>
+<p>在目标估计分支中，通过分类分支得到一个粗略的目标位置，尺度为上一帧的尺度大小，之后在此坐标位置上增加随机噪声得到10个建议框，然后根据IoU通过5次梯度下降来分别优化每个建议框，取IoU值最高的前三个目标框的平均值作为最终的预测结果。</p>
+<p>Hard Negative Mining: 如果在当前帧的热度图中出现了干扰峰，将学习率加倍并对分类器诶进行一轮优化，当分数低于0.25时判定为目标丢失。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><ul>
+<li>作者对比了在IoU-Net中移除reference分支，性能下降了5.5%；之后对比了Baseline网络和Siamese网络，结果是Siamese网络更优；最后对比了使用Block3和Block4的特征有效性，结果为融合两层特征更好。</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/7.png" width="500" height="100" title="IoU分支对比实验"></center>
+
+<ul>
+<li>在位置估计方面对比了多尺度系数查询和IoU的方法，在物体分类方面对比了GD、GD++以及本文的GN方法，结果为GN方法更好，而且还说明了增加梯度优化次数并不能提升算法性能。</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/8.png" width="500" height="100" title="分类器对比实验2"></center>
+
+<ul>
+<li>NFS、UAV123、TrackingNet、VOT2018四个数据集的结果如图</li>
+</ul>
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/4.png" width="600" height="300" title="NFS、UAV123结果图"></center>
+
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/5.png" width="600" height="100" title="TrackingNet结果图"></center>
+
+<center><img src="/2019/05/14/Accurate-Tracking-by-Overlap-Maximization/6.png" width="600" height="100" title="VOT2018结果图"></center>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最近基于单目标跟踪的算法都是集中在对Siamese网络模型的各种创新上，致力于提升分类器的判别性能，而忽略了目标状态估计的重要性。本文从bounding-box的精确性角度出发，构建了位置估计分支，为了提升判别性能构建了物体分类分支，并进行了多任务的融合，在多个数据集上达到了最好的效果。本文作者在分析问题的时候能挖掘别人没有注意到的地方，如之前优化KCF时作者提出DSST通过滤波器计算合适的尺度从而提升性能。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        通信网络总结 - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#OSI参考模型"><span class="toc-text">OSI参考模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-IP分层模型"><span class="toc-text">TCP/IP分层模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IP协议（网络层）"><span class="toc-text">IP协议（网络层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-UDP（传输层）"><span class="toc-text">TCP/UDP（传输层）</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        通信网络总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-12-06 20:46:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Method Summary" title="Method Summary">Method Summary</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h3><p><strong>物理层</strong></p>
+<p>负责0、1比特流与电压的高低、光的闪灭之间的互换。</p>
+<p><strong>数据链路层</strong></p>
+<p>负责物理层面上互连的、节点之间的通信传输。将0、1序列划分为一个一个的数据帧传送给对方。每一个数据帧都包含了“报文首部”，即发送端地址、接收端地址、分组序号等。</p>
+<p><strong>网络层</strong></p>
+<p>将数据传输到目标地址，主要负责寻址和路由选择。</p>
+<p><strong>传输层</strong></p>
+<p>管理两个节点间的数据传输，只在通信双方节点上进行处理，而无需在路由器上处理。</p>
+<p><strong>会话层</strong></p>
+<p>负责通信的管理，建立和断开通信连接，以及数据的分割等。</p>
+<p><strong>表示层</strong></p>
+<p>负责数据格式的转换，将应用处理的信息转换为适合网络传输的格式，或者将来自下一层的数据转换为上层能够处理的格式。具体来说，就是将设备固有的数据格式转换为网络标准传输格式。</p>
+<p><strong>应用层</strong><br>负责每个应用的协议，为应用程序提供服务并规定应用程序中通信相关的细节。包括文件传输、电子邮件、远程登录等各种协议。</p>
+<h3 id="TCP-IP分层模型"><a href="#TCP-IP分层模型" class="headerlink" title="TCP/IP分层模型"></a>TCP/IP分层模型</h3><p><strong>硬件</strong></p>
+<p>负责数据传输，相当于物理层的设备。</p>
+<p><strong>网络接口层</strong></p>
+<p>利用以太网中的数据链路层进行通信，属于接口层，又称<strong>驱动程序</strong>。</p>
+<p><strong>互联网层</strong></p>
+<p>使用IP协议，基于IP地址转发分包数据，相当于网络层，由操作系统提供。当数据包在发送途中发生异常时，需要给发送端一个异常通知，即为ICMP，它同时具有诊断网络健康状况的作用。之后利用ARP协议从分组数据包的IP地址解析出MAC物理地址。</p>
+<p><strong>传输层</strong><br>作用是分清是计算机中哪些程序与哪些程序在进行通信，识别端口号，由操作系统提供。TCP是面向右链接的传输层协议，保证通信可达。UDP是面向无连接的传输层协议，不关注接收端是否收到数据。</p>
+<p><strong>应用层</strong></p>
+<p>将OSI中的会话层、表示层和应用层的功能都集中起来，由应用程序实现。</p>
+<ul>
+<li>浏览器与服务器端之间的通信协议是HTTP，传输数据格式是HTML，其中HTTP属于应用层协议，HTML属于表示层协议。</li>
+<li>电子邮件协议是SMTP，MIME是其扩展，可以发送声音、图像等信息，属于表示层协议。</li>
+<li>文件传输协议是FTP，在此过程中建立两个TCP连接，分别发出控制连接和数据连接。</li>
+<li>远程登录协议是SSH。</li>
+<li>网路管理协议是SNMP，属于应用层协议。</li>
+</ul>
+<p>整体信息：</p>
+<p>接收端MAC地址+发送端MAC地址+以太网类型+发送端IP地址+接收端IP地址+协议类型+源端口号+目标端口号+数据+循环冗余校验</p>
+<h3 id="IP协议（网络层）"><a href="#IP协议（网络层）" class="headerlink" title="IP协议（网络层）"></a>IP协议（网络层）</h3><p>网络层的主要作用是实现两个终端点对点的通信。</p>
+<p>IP的主要作用是在复杂的网络环境中将数据包发送给最终的目标地址。</p>
+<p>网络层与数据链路层的区别在于网络层是行程表，告诉了车票在哪个限定的区间内进行移动，而数据链路层就是车票，标有起始位置和终止位置，并作为移动的依据。即数据链路层只负责某一区间内的通信传输，网络层负责点对点通信，也就是负责限定在哪个区间。</p>
+<p>IP属于面向无连接型，即使对端主机不存在，数据包还是会发送出去。IP只负责将数据发送出去，TCP负责保证数据的可靠性。</p>
+<p>IPv4地址由32位二进制正整数来表示，分为每八位一组，每组以<code>.</code>隔开，将每组二进制数转换为十进制。</p>
+<p>IP地址由网络地址和主机地址两部分组成，以子网掩码（对应网络地址的位置全为<code>1</code>，对应主机地址的位置全为<code>0</code>）区分（如今）。</p>
+<p>IP地址分为四个级别（20世纪90年代），根据地址中从第一位到第四位的比特列对网络地址和主机地址进行区分，同时主机地址不能全为0（地址不可获知情况）或者全为1（广播情况）：</p>
+<ol>
+<li><strong>A类地址</strong> 以<code>0</code>开头 第1位到第8位是网络地址 0.0.0.0～127.0.0.0 主机容纳上限为16，777，214个</li>
+<li><strong>B类地址</strong> 以<code>10</code>开头 第1位到第16位是网络地址 128.0.0.0～191.255.0.0 主机容纳上限为65，534个</li>
+<li><strong>C类地址</strong> 以<code>110</code>开头 第1位到第24位是网络地址 192.0.0.0～223.255.255.0 主机容纳上限为254个</li>
+<li><strong>D类地址</strong> 以<code>1110</code>开头 第1位到第32位是网络地址 224.0.0.0～239.255.255.255 没有主机地址，常用于多播</li>
+</ol>
+<p>CIDR：在地址后面加上<code>/数字</code>代表了网络地址所占的位数，可以以任意长度分割两种地址，也可以将两个地址合并为一个网络。</p>
+<p>私有地址和公有地址：在路由器或者服务器上设置全局IP地址，即公有地址，之后在每个终端设置私有地址。公有地址不能重复，而私有地址可以在互联网上重复，不能在本地重复。这种技术是NAT技术，将IPv4和NAT技术结合解决地址缺少的问题。</p>
+<p>IPv6地址由128位二进制正整数来表示，前64位为网络地址，后64位为主机地址，以每16比特位一组，用冒号分隔，如果出现连续的零可省略，用两个冒号隔开，只允许出现一次两个连续的冒号，特点如下：</p>
+<ol>
+<li>IP地址扩大，路由控制表聚合</li>
+<li>性能提升</li>
+<li>支持即插即用功能</li>
+<li>采用认证与加密功能</li>
+<li>多播、Mobile IP成为扩展功能</li>
+</ol>
+<p>DNS：管理主机名和IP地址之间对应关系的系统。</p>
+<p>ARP：通过发送ARP请求包，包含发送目标的IP地址，ARP会被这同一链路上所有的主机和路由器进行解析，如果包中目标地址与自己的IP地址一致，则这个节点将自己的MAC地址塞入ARP响应包冰返回。即<strong>可以通过ARP从IP地址获得MAC地址</strong>。</p>
+<p>ICMP：确认网络是否正常工作，以及遇到异常情况时进行问题诊断。<code>ping</code>命令就是基于此功能的，功能如下：</p>
+<ol>
+<li>确认IP包是否成功送达目标地址</li>
+<li>通知发送过程中IP包被废弃的具体原因，通知消息使用IP进行发送</li>
+<li>改善网络设置</li>
+</ol>
+<p>DHCP：实现自动设置IP地址、统一管理IP地址分配（让即插即用变成了可能）。一般家庭使用宽带路由器充当此角色。</p>
+<p>从DHCP服务器中获取IP地址的流程如下：</p>
+<ol>
+<li>管理员在DHCP服务器上设置可分配的IP地址、子网掩码以及默认路由；</li>
+<li>DHCP服务器通知可以使用的网络设置；</li>
+<li>通知想要使用在2中通知的设置；</li>
+<li>通知允许3的设置。</li>
+</ol>
+<p>之后就可以进行TCP/IP通信，当不需要IP时，可发送DHCP接触包。</p>
+<p>NAT：用于在本地网络中使用私有地址，在连接互联网时转而使用全局IP地址的技术，实现用一个全局IP地址与多个主机的通信。</p>
+<h3 id="TCP-UDP（传输层）"><a href="#TCP-UDP（传输层）" class="headerlink" title="TCP/UDP（传输层）"></a>TCP/UDP（传输层）</h3><p>TCP是面向连接的、可靠的流协议。</p>
+<p>UDP是不具有可靠性的数据报协议。</p>
+<p>通过5个信息来识别一个通信：</p>
+<ul>
+<li>源IP地址</li>
+<li>目标IP地址</li>
+<li>协议号</li>
+<li>源端口号</li>
+<li>目标端口号</li>
+</ul>
+<p>TCP通过检验和、序列号（发送数据的位置，即发送到哪了，接下来该发送什么）、确认应答、重发控制、连接管理、窗口控制等机制实现可靠性传输。</p>
+<p>TCP以段为单位发送数据，即最大消息长度（MSS），由两端主机之间计算得出。</p>
+<p><strong>确认应答</strong></p>
+<p>当发送端的数据到达接收主机时，接收端主机会返回一个已收到消息的通知。这个消息叫做确认应答（ACK）。</p>
+<p><strong>重发控制</strong></p>
+<p>重发超时：每次发包时都会计算往返时间及其偏差，比这个总和稍大一点的值即为重发超时。（0.5秒的整数倍，6秒左右）</p>
+<p><strong>连接管理</strong></p>
+<p>数据通信前，通过TCP首部发送一个SYN包作为建立连接的请求等待确认应答。通信结束时会发送一个FIN包作为断开连接的请求。</p>
+<p>一个连接的建立与断开，正常过程至少需要来回发送7个包才能完成。</p>
+<p><strong>三次握手</strong></p>
+<p>A-&gt;B SYN请求连接</p>
+<p>B-&gt;A ACK针对SYN的确认应答，并SYN请求连接</p>
+<p>A-&gt;B ACK对SYN的确认应答</p>
+<p>通信连接完成……</p>
+<p><strong>四次挥手</strong></p>
+<p>A-&gt;B FIN请求断开</p>
+<p>B-&gt;A ACK针对FIN的确认应答</p>
+<p>B-&gt;A FIN请求断开</p>
+<p>A-&gt;B ACK针对FIN的确认应答</p>
+<p><strong>窗口控制</strong><br>在通信双方往返时间较长的情况下，控制网络性能。确认应答不再以段为单位，而是更大的单位。</p>
+<p>窗口大小指无需等待确认应答而可以继续发送数据的最大值。</p>
+<p>再没收到确认应答之前，所有数据发送的同时，会进入缓冲区，如果失败则重新发送，如果成功则将缓冲区中确认收到的信息清除。</p>
+<p>UDP首部格式：源端口号、目标端口号、包长度、校验和。</p>
+<p>当校验和不匹配时，所有接收结果都被抛弃。</p>
+<p>TCP首部格式：源端口号、目标端口号、序列号、确认应答号、数据偏移、保留、控制位、窗口大小、校验和、紧急指针、选项、填充。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

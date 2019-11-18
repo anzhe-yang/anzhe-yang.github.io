@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Deep Visual Tracking: Review and Experimental comparison - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要内容"><span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目标跟踪简介"><span class="toc-text">目标跟踪简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络结构"><span class="toc-text">网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用CNN模型"><span class="toc-text">使用CNN模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用RNN模型"><span class="toc-text">使用RNN模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用其他网络模型"><span class="toc-text">使用其他网络模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络功能"><span class="toc-text">网络功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#仅使用深度网络来提取特征的跟踪算法-FEN"><span class="toc-text">仅使用深度网络来提取特征的跟踪算法(FEN)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#端到端的深度网络跟踪算法-EEN"><span class="toc-text">端到端的深度网络跟踪算法(EEN)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络训练"><span class="toc-text">网络训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析部分"><span class="toc-text">分析部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欠缺的研究方向"><span class="toc-text">欠缺的研究方向</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Deep Visual Tracking: Review and Experimental comparison
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-09-14 20:55:22</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Paper Review" title="Paper Review">Paper Review</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>论文链接：<a href="https://ac.els-cdn.com/S0031320317304612/1-s2.0-S0031320317304612-main.pdf?_tid=54c136ff-a555-4feb-8bf1-5a7433919dfe&amp;acdnat=1536931602_6895ff75c237f8520037a3b44a52a622" target="_blank" rel="noopener">Li P, Wang D, Wang L, et al. Deep visual tracking: Review and experimental comparison[J]. Pattern Recognition, 2018, 76: 323-338.</a></p>
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><p>卢教授的一篇文章，大连理工大学的卢湖川教授也是跟踪领域中的一位厉害人物，曾经在ICCV发表的FCNT产生了很大的反响。这是一篇有关深度网络跟踪算法的综述论文，主要从<strong>点评</strong>和<strong>实验比较</strong>两个方面来说明。基于深度网络的跟踪算法主要依据网络的<strong>结构</strong>、<strong>功能</strong>、<strong>训练</strong>来分为三类，并在<strong>OTB-100</strong>、<strong>TC-128</strong>、<strong>VOT-2015</strong>三个数据集上比较性能。论文中总结出一些结论：</p>
+<ul>
+<li><p>使用卷积神经网络(CNN)确实能有效提升跟踪性能</p>
+</li>
+<li><p>使用深度网络做前景和背景的二分类会有较好的性能，而用作模板匹配会有较高的效率</p>
+</li>
+<li><p>深度网络所提取的特征相较于人工特征会有更好的性能</p>
+</li>
+<li><p>不同的卷积层所提取的特征拥有着不同的特性，若对其有效组合会得到更鲁棒的跟踪算法</p>
+</li>
+<li><p>端到端的网络模式相较于仅用来提取特征的模式性能更好</p>
+</li>
+<li><p>最适宜的预训练方法是在视频数据集上进行，在跟踪阶段进行微调</p>
+</li>
+</ul>
+<p>这篇文章主要注重这几个问题：</p>
+<ol>
+<li>当前这些基于深度网络的跟踪算法有什么联系和区别？</li>
+<li>为什么深度网络适合目标跟踪？</li>
+<li>如何让深度网络对目标跟踪产生更好的影响？未来发展此领域的方向是什么？</li>
+</ol>
+<p>这篇文章在实验比较内容中一共对比了16种基于深度网络的跟踪算法和6种baseline方法。</p>
+<h3 id="目标跟踪简介"><a href="#目标跟踪简介" class="headerlink" title="目标跟踪简介"></a>目标跟踪简介</h3><p>目标跟踪研究的内容就是在实际场景中使用算法跟踪从第一帧就标定好的目标。宽泛地讲，目标跟踪主要包含两种主要的元素：1. 描述物体当前状态并预测物体未来状态的运动模型，例如卡尔曼滤波器和粒子滤波器；2. 描述目标外观信息和确定预测目标的观察模型。一些研究者表明观察模型比运动模型更加重要。</p>
+<p>从观察模型的角度来说，跟踪算法经常被分为生成式方法和判别式方法。生成式方法聚焦于找寻最相似于目标的区域位置；而判别式方法将跟踪问题考虑为一个分类问题，主要聚焦于把目标前景和背景分开。</p>
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_1.png" width="600" height="600" title="论文中的类型简称"></center>
+
+
+
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><h4 id="使用CNN模型"><a href="#使用CNN模型" class="headerlink" title="使用CNN模型"></a>使用CNN模型</h4><p><strong>使用CNN模型去判别前景和背景(CNN-C)</strong><br>在VGGNet中，卷积层中最后一层的输出往往包含语义信息和表征信息，使其对于图像的外观变化非常鲁棒，但空间分辨率很低，无法定位到目标的准确位置。相反，前面的卷积层就可以很精准的定位到目标位置，但却不适用于外观变化。那么把不同的层和相关滤波器结合就是一种很好的方法，结构如图。</p>
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_2.png" width="500" height="250" title="CNN-C结构模型"></center>
+
+
+
+<p><strong>使用CNN模型去匹配目标模板(CNN-M)</strong></p>
+<p>此类结构主要使用CNN模型去学习一个有效的<strong>匹配</strong>函数，从候选目标中匹配到准确的目标模板来实现跟踪任务，如Siamese网络，从候选区域中匹配目标，得到特征匹配图，结构如图。</p>
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_3.png" width="500" height="250" title="CNN-M结构模型"></center>
+
+
+
+<h4 id="使用RNN模型"><a href="#使用RNN模型" class="headerlink" title="使用RNN模型"></a>使用RNN模型</h4><p>利用空间结构性和时间有序性，RNN网络的特征能够较好的攻克<strong>遮挡</strong>难关，且RNN和CNN相结合会更加提升特征的鲁棒性，利用LSTM的时间关联性能够在跟踪过程中形成长时间记忆。</p>
+<h4 id="使用其他网络模型"><a href="#使用其他网络模型" class="headerlink" title="使用其他网络模型"></a>使用其他网络模型</h4><p>主要是自编码器的应用，使用浅层特征和深层特征相结合的方法，适用于外观变化的情况。具体内容请查看论文中的3.1.3节。</p>
+<h3 id="网络功能"><a href="#网络功能" class="headerlink" title="网络功能"></a>网络功能</h3><h4 id="仅使用深度网络来提取特征的跟踪算法-FEN"><a href="#仅使用深度网络来提取特征的跟踪算法-FEN" class="headerlink" title="仅使用深度网络来提取特征的跟踪算法(FEN)"></a>仅使用深度网络来提取特征的跟踪算法(FEN)</h4><ol>
+<li>从深度网络中提取某一层的特征(FEN-SL)</li>
+<li>从深度网络中提取多层的特征(FEN-ML)</li>
+</ol>
+<h4 id="端到端的深度网络跟踪算法-EEN"><a href="#端到端的深度网络跟踪算法-EEN" class="headerlink" title="端到端的深度网络跟踪算法(EEN)"></a>端到端的深度网络跟踪算法(EEN)</h4><ol>
+<li>利用粒子滤波器或者滑动窗口策略产生一系列的候选目标，之后产生每个候选目标的得分数从而确定目标位置(EEN-S)</li>
+<li>使用深度网络去生成一个置信图(confidence map)、概率图(probablyility map)、响应图(response map)、热度图(heat map)，之后使用其他的方法去定位目标(EEN-M)</li>
+<li>使用深度网络直接产生bounding box位置(EEN-B)</li>
+</ol>
+<h3 id="网络训练"><a href="#网络训练" class="headerlink" title="网络训练"></a>网络训练</h3><ol>
+<li>不用预训练+在线学习(NP-OL)</li>
+<li>图像预训练+非在线学习(主要使用VGGNet)(IP-NOL)</li>
+<li>图像预训练+在线学习(IP-OL)</li>
+<li>视频预训练+非在线学习：卷积层目的是提取深层特征，全连接层目的是学习如何区分目标模板和候选样本，这是一个复杂的特征比较学习过程。(VP-NOL)</li>
+<li>视频预训练+在线学习(MDNet)：如图所示。(VP-OL)<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_4.png" width="600" height="300" title="MDNet网络模型"></center>
+
+</li>
+</ol>
+<p>此外，深度增强学习（DRL）也在目标跟踪领域中扮演着重要的角色，它很适合缺少训练标签或者之后才能活着标签的任务。</p>
+<h3 id="分析部分"><a href="#分析部分" class="headerlink" title="分析部分"></a>分析部分</h3><ol>
+<li>分析网络结构：CNN模型表现出很好的性能，但却无法对连续的帧进行建模，导致它无法有效利用跟踪任务的时间信息。而RNN却可以描述时间或空间的关系，在这方面的研究还很欠缺。</li>
+<li>分析网络功能：端到端的跟踪算法比仅用深度网络提特征的算法好，表明深度网络在分类和匹配的功能上比传统方法更好。</li>
+<li>分析网络训练：离线预训练可以减少额外的计算量和空间损耗，而在线fine-tune可以时刻改变模板和性能。使用图像进行预训练可以提升性能，而使用视频进行预训练更符合跟踪任务的特性，可能会达到更好的效果。</li>
+<li>分析跟踪速度：跟踪任务的图像分辨率普遍比分类任务低，如果采用深层网络可能会丢失很多信息。在模板更新方面，每隔几帧更新模板的方法和使用一个通道网络去进行模板匹配而不是在线更新分类器的方法，两者都取得了很好的效果。</li>
+</ol>
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_5.png" width="800" height="250" title="OTB-100的实验结果(OPE)"></center>
+
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_6.png" width="800" height="250" title="TC-128的实验结果(OPE)"></center>
+
+<center><img src="/2018/09/14/Deep-Visual-Tracking-Review-and-Experimental-comparison/1_7.png" width="600" height="350" title="跟踪算法的速度比较"></center>
+
+
+
+<h3 id="欠缺的研究方向"><a href="#欠缺的研究方向" class="headerlink" title="欠缺的研究方向"></a>欠缺的研究方向</h3><ol>
+<li>深度特征包含很多冗余性，限制了速度和性能的提升，降低深度特征的冗余度，提升跟踪速率。</li>
+<li>很多方法都是使用VGG网络，发展更多有效的网络很急迫。</li>
+<li>由于跟踪任务缺少训练数据，那么无监督或弱监督学习就比较适合。增强学习和生成对抗网络也可以用来产生更多的训练样本来提升跟踪性能。</li>
+<li>模型的转移能力在跟踪任务中很重要，one-shot learning也是一个新的方向。</li>
+<li>提升算法的有效性和解决训练样本的缺失性会是一个新的方向。</li>
+</ol>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

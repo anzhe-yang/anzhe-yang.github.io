@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Multi Attention Module for Visual Tracking - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要内容"><span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法内容"><span class="toc-text">方法内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#多种注意力机制模块"><span class="toc-text">多种注意力机制模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#跟踪模块"><span class="toc-text">跟踪模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将多种注意力模块与跟踪模块相结合"><span class="toc-text">将多种注意力模块与跟踪模块相结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合并检测的结果"><span class="toc-text">合并检测的结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改进空间"><span class="toc-text">改进空间</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Multi Attention Module for Visual Tracking
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-01-17 13:44:02</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Paper Review" title="Paper Review">Paper Review</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>论文链接：<a href="https://www.sciencedirect.com/science/article/pii/S0031320318303509?via%3Dihub" target="_blank" rel="noopener">Boyu Chen, Peixia Li, Chong Sun, Dong Wang, Gang Yang, Huchuan Lu. Multi attention module for visual tracking[]//Pattern Recognition, 2019. 87: 80-93.</a></p>
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><p>这篇论文主要提出了使用四种 attention 进行融合来提升目标跟踪算法的性能和速率，提出一种融合了这四种注意力机制的网络和一种降低跟踪漂移的检测策略。</p>
+<ul>
+<li>Layer-wise attention 不同层的深度特征可能适合不同的场景，利用离线方法训练网络在跟踪过程中在线选择适合的特征；</li>
+<li>Temporal attention 应用 LSTM 捕捉目标的历史信息，从而提供可靠的信息供算法对当前帧进行分析，探索跟踪任务的时间连续性；</li>
+<li>Spatial attention 提取目标的空间信息，从而对当前帧的图像进行有针对性的特征提取，降低周围背景噪声对算法的影响；</li>
+<li>Channel-wise attention 卷积特征中不同通道对图像中不同区域产生不同的影响，有针对性的提取特定通道的特征可以降低背景影响，提升网络对目标区域的关注度。</li>
+</ul>
+<p><strong>Layer-wise attention</strong></p>
+<p>深度网络中高层特征更多的表达目标类别性的语义信息，对目标的外观变化具有很强的鲁棒性；低层特征更多的保存目标的空间细节信息，但对目标的形态变化很敏感。之前的工作只是对这些特征进行简单的融合，缺少有效的注意力机制让有用的层发挥作用，耗费了计算资源。</p>
+<p><strong>Temporal attention</strong></p>
+<p>现如今目标跟踪算法鲜有利用视频的时空信息，但视频却有着很强的时空一致性特征，目标在相邻的帧间很少发生大的形变和位移，利用时空信息就可以有效压制错误的正样本。而 RNN 网络在提取相关联序列化的数据很有效，如何有效的将时空信息加入跟踪算法里很重要。</p>
+<p><strong>Spatial attention</strong></p>
+<p>空间信息提供了单幅图像中的内部关系，跟踪任务通过前几帧预测的目标位置可以有效的决定当前帧中大概哪些区域是前景，哪些区域是背景，可以对前景部分设置较高的权重值从而通过 ROI 池化层确定感兴趣的区域。</p>
+<p><strong>Channel-wise attention</strong></p>
+<p>利用大规模数据集预训练好的深度网络在判别物体性质上很有用，它将提取的所有频道的信息都一视同仁，这种方法并不适合目标跟踪任务。不同频道提取图像中不同的语义信息，有些频道特征对于物体定位很有用，有些对于定位任务却如同噪声显得非常冗余，从而导致了跟踪漂移现象。选择合适频道的特征可以提升目标区域的关注度，同时压制背景的响应。</p>
+<h3 id="方法内容"><a href="#方法内容" class="headerlink" title="方法内容"></a>方法内容</h3><h4 id="多种注意力机制模块"><a href="#多种注意力机制模块" class="headerlink" title="多种注意力机制模块"></a>多种注意力机制模块</h4><p><strong>时间注意力模块</strong></p>
+<p>将连续帧间的视觉注意力问题视为一个序列化问题，采用 LSTM 单元添加时间一致性信息。在第 t 个时间点上，LSTM 被定义为：</p>
+<script type="math/tex; mode=display">\begin{pmatrix}{f_{t}}\\{i_{t}}\\{o_{t}}\\{g_{t}}\end{pmatrix}=\sigma(W_{hh}h_{t-1}+W_{ih}x_{t}+b)  ​</script><script type="math/tex; mode=display">c_{t}=f_t \odot c_{t-1} +i_t \odot g_t​</script><script type="math/tex; mode=display">h_t=o_t \odot tanh(c_t) ​</script><p>$x_t$为输入的特征；$h_t$是隐藏状态；$c_t$是细胞状态；$W_{hh}$是隐藏层和隐藏层间的核权重；$W_{ih}$是输入层和隐藏层间的核权重；$f_t,i_t,o_t,g_t$分别是忘记门、输入门、输出门和内容门；$\sigma$是前三个门使用的$sigmoid$激活函数；$tanh$是内容门使用的激活函数。</p>
+<p>将$h_t$作为时间注意力模块的输出信息，此信息后续被用于空间注意力和频道注意力模块中。</p>
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/LSTM.png" width="500" height="250" title="时间注意力模块"></center>
+
+<p><strong>空间注意力模块</strong></p>
+<p>给定图像特征$V\in\mathbb{R}^{W\times H\times C}​$和 LSTM 输出$h_t​$，首先将图像特征的二维特征转化为一维特征，宽和高相分离，即$V_s=[v_1,v_2,…,v_n]​$这$W\times H​$个特征向量，$v_{i}\in\mathbb{R}^C​$。将此特征向量经过一个单层的神经网络并使用$softmax​$激活函数来生成$W\times H​$这片区域的注意力权重：</p>
+<script type="math/tex; mode=display">A_a=tanh((W_1V_S+b_1)\oplus W_2h_t)</script><script type="math/tex; mode=display">A_s=softmax(W_3A_a+b_3) ​</script><p>$W_1\in\mathbb{R}^{n\times C}, W_2\in\mathbb{R}^{n\times d}, W_3\in\mathbb{R}^n​$是为了平衡图像特征和隐藏状态的权重参数，$b_1\in\mathbb{R}^n, b_3\in\mathbb{R}^1​$是模型的偏置，$\oplus​$代表了一个矩阵和一个向量的$broadcast​$加法操作。</p>
+<p><strong>频道注意力模块</strong></p>
+<p>通过和空间注意力模块相似的步骤来选择适合当前跟踪任务的卷积核滤波器，从而选择适合的频道特征。给定图像特征$V\in\mathbb{R}^{W\times H\times C}$和 LSTM 输出$h_t$，首先将图像特征做全局平均池化操作得到频道特征$v’$：</p>
+<script type="math/tex; mode=display">V_C=[v'_1,v'_2,...,v'_c], v'\in\mathbb{R}^C</script><p>$v’_i$是将 2D 特征作全局平均池化输出的第 i 个频道的特征，在此之后添加一个单层的神经网络并使用$softmax$激活函数来生成频道注意力：</p>
+<script type="math/tex; mode=display">A_b=tanh((W'_1\otimes V_C+b'_1)\oplus W'_2h_{t-1}) ​</script><script type="math/tex; mode=display">A_c=softmax(W'_3A_b+b'_3)</script><p>$W’_1\in\mathbb{R}^{C\times C}, W’_2\in\mathbb{R}^{C\times d}, W’_3\in\mathbb{R}^C$是为了平衡图像特征和隐藏状态的权重参数，$b’_1\in\mathbb{R}^C, b’_3\in\mathbb{R}^1$是模型的偏置，$\otimes$代表了向量的外积操作。</p>
+<p><strong>网络层注意力模块</strong></p>
+<p>给定空间权重$A_s$，频道权重$A_c$和图像特征$V$，则通过对空间权重和特征做点乘操作得到空间特征$F_s$，通过将频道权重单独应用于每个频道得到频道特征$F_c$。之后将这些特征放入全连接层和$ReLU$激活单元。最后融合两种类型的特征并利用一个全连接层和$softmax$函数组成的分类器产生分数。在本文中，只关注 Conv5-3 和 Conv4-3 这两种的卷积特征。</p>
+<h4 id="跟踪模块"><a href="#跟踪模块" class="headerlink" title="跟踪模块"></a>跟踪模块</h4><p>对于每个图像的 Conv4-3 和 Conv5-3 特征，利用一个卷积层和三个全连接层输出目标的类别信息。一个卷积层的目的主要是通过$1\times 1$的卷积核产生256个频道特征用于降维。其中两个全连接层有512个输出单元并接上$ReLUs$激活函数。最后一个全连接层输出两个响应值，分别代表了前景和背景的可能性分数。</p>
+<h4 id="将多种注意力模块与跟踪模块相结合"><a href="#将多种注意力模块与跟踪模块相结合" class="headerlink" title="将多种注意力模块与跟踪模块相结合"></a>将多种注意力模块与跟踪模块相结合</h4><p><strong>候选区域的特征提取</strong></p>
+<p>将跟踪任务转化为检测-跟踪框架，给定第$t​$帧的视频图像$I^t​$和上一帧的目标位置$X^{t-1}​$，根据高斯分布模型$p(X^t|X^{t-1})=\mathcal{N}(X^t;X^{t-1},\sum)​$以$X^{t-1}​$为中心，方差为$\sum​$生成目标候选集${X^t_i}​$。</p>
+<p>特征提取阶段直接先提取整幅图像的特征，而不是独自提取不同候选集的特征，减少了计算量。之后利用$RoI$池化层作用于此特征图，将每个候选集的特征图聚集成响应值投射在一个$7\times 7\times 512$大小的窗口上固定特征表征。在这个过程中，仅用了一次前向计算就得到了所有候选目标的特征表示。</p>
+<p><strong>注意力特征图规则</strong></p>
+<p>为了减少候选数量，使用一个 attention map guidance 方法：</p>
+<script type="math/tex; mode=display">F_a=\frac{1}{C}\sum^C f_c(A_c,f_s(A_s,V))</script><p>$F_a$即为 attention map。</p>
+<p>之后，所有的候选目标通过注意力分数的总和被降序排序，仅保留 K 个候选集。选择具有较高分数的网络层特征，从全局特征图中将候选集的特征裁剪出来并将它们进行评估。</p>
+<p><strong>目标定位</strong><br>将上述的候选集特征分别送入两个子网络中，两个网络拥有相同的结构但参数不同。最后得到候选集的可能性分数，选出最高的一个作为最终预测的目标。</p>
+<p><strong>初始化和更新</strong></p>
+<p>给定第一帧的初始化目标位置$X^1​$，生成正样本集$\mathcal{X}_+​$和负样本集$\mathcal{X}_-​$。上述的两个子网络通过最小化如下的 SGD 函数进行初始化：</p>
+<script type="math/tex; mode=display">arg\min_{\theta}-\sum_{X\in \mathcal{X}_+}p_+(X|f;\theta)-\sum_{X\in\mathcal{X_-}}  p_-(X|f;\theta)​</script><p>为了使算法适应目标的外观变化，在跟踪模块中每一帧都基于上述初始化的方法更新参数。</p>
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/feature.png" width="500" height="500" title="搭载注意力模块的特征提取部分"></center>
+
+<h4 id="合并检测的结果"><a href="#合并检测的结果" class="headerlink" title="合并检测的结果"></a>合并检测的结果</h4><p>采用 Faster-RCNN 的检测器，预训练包含了20种类别。跟踪的目标可能不在这些类别之内，首先计算检测的目标窗口和标定目标的覆盖率，如果低于阈值则在跟踪中不考虑检测结果，否则通过三种策略来考虑检测结果。</p>
+<p><strong>精炼跟踪结果</strong></p>
+<p>通过检测得到的结果来精炼跟踪所得到的结果，计算跟踪结果和所有检测结果窗的覆盖率，如果高于阈值则选择具有最高分数的检测结果窗作为最终预测的目标位置。</p>
+<p><strong>严重负样本处理</strong><br>在每一帧中，检测器都提供了一系列潜在的目标，这些目标可能会严重干扰跟踪器。所以将这些目标视为严重负样本，将它们加入训练样本集，更新跟踪算法参数。</p>
+<p><strong>跟踪重置</strong></p>
+<p>许多情况会导致跟踪漂移，大部分时候是由于运动模型而导致的。当发生此情况时，通过添加所有同类别的检测窗目标来扩充目标候选样本，将这些检测得到的同类别物体作为目标。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>算法的具体参数设计请参考论文第4节。</p>
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/otb2013.png" width="600" height="300" title="OTB2013结果图"></center>
+
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/otb100.png" width="600" height="300" title="OTB100结果图"></center>
+
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/tc128.png" width="600" height="300" title="TC128结果图"></center>
+
+<center><img src="/2019/01/17/Multi-Attention-Module-for-Visual-Tracking/ablation.png" width="600" height="300" title="应用不同模块在OTB2013上的结果图"></center>
+
+<h3 id="改进空间"><a href="#改进空间" class="headerlink" title="改进空间"></a>改进空间</h3><ol>
+<li>运行速度有待提升；</li>
+<li>提取的特征固定为$7\times 7$，这个尺寸对于小目标来说不合适，会丢失很多信息；</li>
+<li>在多种跟踪数据集上离线训练算法，并联合端到端的模型。</li>
+</ol>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        问题总结 - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        问题总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-05-17 17:06:03</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Method Summary" title="Method Summary">Method Summary</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <ol>
+<li><p>了解过哪些损失函数。</p>
+<ul>
+<li><p>对数损失函数：$\mathcal{L}=-y(\log{f(x)})-(1-y)(1-\log{f(x)})$</p>
+</li>
+<li><p>平方损失函数：$\mathcal{L}=(y-f(x))^2$</p>
+</li>
+<li><p>指数损失函数：$\mathcal{L}=\exp{(-yf(x))}$</p>
+</li>
+<li><p>Hinge损失函数：$\mathcal{L}=max(0,1-yf(x))$</p>
+</li>
+<li><p>绝对值损失函数：$\mathcal{L}=|y-f(x)|$</p>
+</li>
+</ul>
+</li>
+<li><p>从一组数组中找出和最大的最长连续子串。</p>
+</li>
+</ol>
+<p>   <strong>解决思路：</strong>利用动态规划方法，每次找出以第<code>i</code>个元素为末尾组成的子串的最大和。如果前一最大和小于等于零，则当前<code>dp</code>等于当前元素值；如果大于零，则当前<code>dp</code>等于当前值加上前一最大和。每次循环都判断一次前<code>i</code>个元素中子串的最大和，即<code>maxSum</code>。</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestSubarray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: Find the largest continuous subarray in the array.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Params</span>: [nums] Array.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Return</span>: int The largest sum.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span>: 2019-03-26</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span>(nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">int</span> maxSum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span> || dp[i-<span class="number">1</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            dp[i] = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>] + nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        maxSum = max(dp[i], maxSum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>写一下逻辑回归的损失函数。</p>
+<script type="math/tex; mode=display">J(\theta)=-\frac{1}{m}[\sum^m_{i=1}(y^{(i)}\log{h_\theta(x^{(i)})+(1-y^{(i)})\log{(1-h_\theta(x^{(i)})})})]</script></li>
+<li><p>PCA用代码实现。</p>
+</li>
+</ol>
+<p>   a. 将数据中心化，即使其均值为零</p>
+<p>   b. 计算数据的协方差矩阵</p>
+<p>   c. 计算协方差矩阵的特征值和特征向量</p>
+<p>   d. 将特征值进行排序，取前<code>k</code>个特征值，并将其对应的特征向量组合起来形成矩阵<code>P</code></p>
+<p>   e. 将矩阵<code>P</code>与原数据矩阵相乘，得到降维后的数据</p>
+<ol>
+<li>K-Means用代码实现。</li>
+</ol>
+<p>   a. 从数据中随机选择<code>k</code>个值作为初始均值点</p>
+<p>   b. 计算其它数据与均值点的<strong>距离</strong>，将其分配到离它最近的均值点区域，成为某一类别，每个数据点只能被分配到一个聚类中心上</p>
+<p>   c. 重新计算每一类别的均值点，作为新的聚类中心点</p>
+<p>   d. 重复以上两步，直到迭代结束</p>
+<ol>
+<li><p>了解过哪些梯度下降的优化方法？有什么区别？</p>
+<ul>
+<li><strong>Batch Gradient Descent</strong>（批梯度下降）</li>
+</ul>
+<script type="math/tex; mode=display">\theta=\theta-\eta\cdot\nabla_\theta J(\theta)</script><p>此方法对所有样本计算梯度后求平均，并更新参数。由于每次执行更新操作时，都需要在整个数据集上计算所有梯度，会导致速度较慢，且容易造成内存溢出。对于凸误差函数，此方法能够保证收敛到全局最小值；而对于非凸函数，就可能会收敛到一个局部最小值。</p>
+<ul>
+<li><strong>SGD</strong>（随机梯度下降）</li>
+</ul>
+<script type="math/tex; mode=display">\theta=\theta-\eta\cdot\nabla_\theta J(\theta;x^{(i)};y^{(i)})</script><p>此方法每次计算一个样本的梯度后就更新参数，运行速度较快，可用于在线学习。由于高频率的更新操作，导致目标函数容易出现剧烈波动。当学习率较小时，可以达到与批梯度下降一样的结果。</p>
+<ul>
+<li><strong>Mini-Batch GD</strong>（小批量梯度下降）</li>
+</ul>
+<p>此方法结合了上述两种方法的优点，在更新时使用较小批量训练样本的平均梯度，可以减小参数更新的方法，提升收敛的稳定性。</p>
+<ul>
+<li><strong>Momentum</strong>（动量）</li>
+</ul>
+<p>上述梯度下降方法存在着某些问题，如在梯度平缓时下降非常慢，在梯度陡峭时容易抖动；容易陷入局部极小值或者马鞍点；对学习率的设置较为敏感；整体过程若采用一个学习率性能会下降，因为如果特征是稀疏且频率差异很大时，相同的学习率对于不同稀疏或频率的特征学习差异很大，造成不好的效果。</p>
+<script type="math/tex; mode=display">v_t=\gamma v_{t-1}+\eta\nabla_\theta J(\theta)</script><script type="math/tex; mode=display">\theta = \theta-v_t</script><p>为了解决上述问题，提出了动量法。此方法在每次梯度下降时都加上之前运动方向上的动量，在梯度平缓时下降更快，在梯度陡峭时减少抖动。同时，在某个点处梯度方向与运动方向一致，则动量参数增大，若不一致，则动量参数减小。这样就可以得到更快的收敛速度，并可以减少抖动影响。</p>
+<ul>
+<li><strong>Nesterov</strong>（梯度加速法）</li>
+</ul>
+<script type="math/tex; mode=display">v_t=\gamma v_{t-1}+\eta\nabla_\theta J(\theta-\gamma v_{t-1})</script><script type="math/tex; mode=display">\theta=\theta-v_t</script><p>若根据动量进行大步的跳跃，会使得梯度盲目的进行下降，缺少一个合理的限制。此方法能够根据之前的动量进行跳跃，然后计算梯度进行校正，从而实现参数更新，防止大幅震荡，错过最优点。此方法使参数更新与误差函数的斜率相适应，并根据每个参数的重要性来调整和更新参数。</p>
+<ul>
+<li><strong>Adagrad</strong></li>
+</ul>
+<p>此方法是通过参数来调整合适的学习率，使得下降的过程对特征的稀疏性不敏感，非常适合树立稀疏的特征。</p>
+<script type="math/tex; mode=display">\theta=\theta-\frac{\eta}{\sqrt{grad_{save}+\epsilon}}J(\theta)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grad_save = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">  dx = compute_gradient(x)</span><br><span class="line">  grad_save += dx * dx</span><br><span class="line">  x -= lr / (np.sqrt(grad_save)+<span class="number">1e-7</span>) * dx</span><br></pre></td></tr></table></figure>
+<p>此方法将每一维度的梯度平方都保存下来，并在更新参数的时候，将学习率除以这个参数，使每一维度的学习率不一样，在梯度大时减小下降速度，梯度小时加快下降速度，无需手动调整学习率。</p>
+<ul>
+<li><strong>Adadelta</strong></li>
+</ul>
+<p>此方法是上一个方法的扩展版本，主要处理学习速率只能单调递减的问题。此方法不是积累所有之前的梯度平方，而是将累积之前梯度的窗口限制到某个固定大小。</p>
+<script type="math/tex; mode=display">E_g^2=\gamma E_g^2+(1-\gamma)J(\theta)^2</script><script type="math/tex; mode=display">\theta=\theta-\frac{\eta}{\sqrt{E_g^2+\epsilon}} J(\theta)</script><ul>
+<li><strong>RMSprop</strong></li>
+</ul>
+<p>此方法是对上一个方法的改进，主要增加了一个延迟因子平衡梯度平方和上一个参数。</p>
+<script type="math/tex; mode=display">\theta=\theta-\frac{\eta}{\sqrt{decay\cdot grad_{save}+(1-decay)J(\theta)^2}}J(\theta)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grad_save = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">  dx = compute_gradient(x)</span><br><span class="line">  grad_save = decay * grad_save + (<span class="number">1</span>-decay) * dx * dx</span><br><span class="line">  x -= lr / (np.sqrt(grad_save)+<span class="number">1e-7</span>) * dx</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Adam</strong></li>
+</ul>
+<p>此方法结合了动量法和RMSprop的特征，增加了自适应学习率。</p>
+</li>
+<li><p>写一下Adam的优化公式。</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">first_moment = <span class="number">0</span></span><br><span class="line">second_moment = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">  <span class="comment"># beta1=0.9 beta2=0.999</span></span><br><span class="line">  dx = compute_gradient(x)</span><br><span class="line">  <span class="comment"># Momentum</span></span><br><span class="line">  first_moment = beta1 * first_moment + (<span class="number">1</span>-beta1) * dx</span><br><span class="line">  <span class="comment"># RMSProp</span></span><br><span class="line">  second_moment = beta2 * second_moment + (<span class="number">1</span>-beta2) * dx * dx</span><br><span class="line">  <span class="comment"># Bias correction</span></span><br><span class="line">  first_unbias = first_moment / (<span class="number">1</span>-beta1**<span class="number">2</span>)</span><br><span class="line">  second_unbias = second_moment / (<span class="number">1</span>-beta2**<span class="number">2</span>)</span><br><span class="line">  <span class="comment"># RMSProp</span></span><br><span class="line">  x -= lr * first_unbias / (np.sqrt(second_unbias)+<span class="number">1e-7</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写一下逻辑回归的损失函数。</p>
+<script type="math/tex; mode=display">Loss=y_{label}\log{y}+(1-y_{label})\log{(1-y)}</script><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}\sum^m_{i=1}(y^{(i)}-y_{label}^{(i)})^2</script></li>
+<li><p>如何理解卷积和池化这两个过程？</p>
+<p><strong>卷积：</strong>一维信号的卷积：$ y[n]=x[n]*h[n]=\sum_kx[k]\cdot h[n-k] $，其中$x[n]$为输入信号，$h[n]$为单位响应。所以输出即为输入的延迟相应叠加，即本质为加权积分。</p>
+<p>  二维信号的卷积：$ y[m,n]=x[m,n]*h[m,n]=\sum_i\sum_jx[i,j]\cdot h[m-i,n-j] $，引入了卷积核的概念，对应于一维卷积中的单位响应。因此，二维卷积也是加权积分，但是其中卷积核进行了水平和竖直方向的翻转，可以定义为转置卷积。</p>
+<p>  卷积核具有局部性的属性，它仅关注于局部特征，局部的范围取决于卷积核的大小。图像与卷积核卷积的过程即为对图像的频域信息进行选择的过程。图像中边缘和轮廓属于高频信息，区域强度属于低频信息，这种理论指导了如何设计卷积核。</p>
+<p>  在卷积神经网络中，每一层之间的卷积核参数是固定的，且会多一个偏置参数，提升非线性因素，所以在卷积网络中由于卷积核和偏置是固定的，相比于神经网络大大降低了参数数量。卷积核中的参数是通过梯度优化得到的，所以参数的初始化就显得尤为重要。</p>
+<p>  <strong>池化：</strong>池化的本质就是采样，选择某种方式对特征进行压缩。可以减少参数数量，降低特征维度，有效减少后续网络层所需要的参数。其次可以增强特征的旋转或者位移不变性，增强网络的鲁棒性。</p>
+</li>
+<li><p>ResNet和GoogleNet的原理。</p>
+<p><strong>ResNet</strong>的本质就是降低了数据中信息的冗余度。具体说来，就是对非冗余信息采用了线性激活（通过skip connection获得无冗余的identity部分），然后对冗余信息采用了非线性激活（通过ReLU对identity之外的其余部分进行信息提取/过滤，提取出的有用信息即是残差）。其中，提取identity这一步，就是ResNet思想的核心。 由于identity之外的其余部分的信息冗余度较高，因此在对其使用ReLU进行非线性激活时，丢失的有用信息也会较少，ReLU层输出为0的可能性也会较低。这就降低了在反向传播时ReLU的梯度消失的概率，从而便于网络的加深，以大大地发挥深度网络的潜能。 其次，特征复用能加快模型的学习速度，因为参数的优化收敛得快（从identity的基础上直接学习残差，总比从头学习全部来得快）。 </p>
+<p>  <strong>GoogleNet</strong>以降低参数为目的，利用全局平均池化层代替了全连接层，其次大量使用了$1\times1$的卷积核。Inception结构中，每一层中拥有多个卷积核，但在同一位置中不同通道下的卷积核输出结果相关性极高。$1\times1$的卷积核可以把这些相关性高、同一位置、不同通道下的特征结合起来。$3\times3$，$5\times5$的卷积核可以保证特征多样性。$1\times1$卷积核在实现多个特征图的结合，整合不同通道间的信息的同时，可以实现升维和降维的效果。</p>
+</li>
+<li><p>一个二维数组中每一行和每一列都是以升序排列，用最快的方法找出某个值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; searchMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;matrix, <span class="keyword">int</span> target)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">  <span class="keyword">if</span> (matrix.empty() || matrix[<span class="number">0</span>].empty())</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  <span class="keyword">int</span> rows = matrix.size();</span><br><span class="line">  <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].size();</span><br><span class="line">  <span class="keyword">int</span> row = <span class="number">0</span>, col = cols<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">while</span> (row &lt; rows &amp;&amp; col &gt;= <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (matrix[row][col] == target)</span><br><span class="line">    &#123;</span><br><span class="line">      res.push_back(row);</span><br><span class="line">      res.push_back(col);</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (matrix[row][col] &gt; target)</span><br><span class="line">    &#123;</span><br><span class="line">      col--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      row++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>A字符串中含有大量字符，B字符串中含有不超过100的少量字符，C字符串中也包含不超过100的少量字符，B字符串的长度与C的长度不一定相等。问题：从A中找出所有与B相同的子串，并将其替换为C。</li>
+</ol>
+<p>  <a href="https://blog.csdn.net/v_july_v/article/details/7041827" target="_blank" rel="noopener">KMP算法</a></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetNext</span><span class="params">(<span class="built_in">string</span> p, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;next)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * kmp算法中，先建立匹配字符串的next数组</span></span><br><span class="line"><span class="comment">     * 即找数组中以某个点为终止的子字符串的前缀后缀最大公共长度</span></span><br><span class="line"><span class="comment">     * 而next数组就是将最大公共长度的数值向右移一位</span></span><br><span class="line"><span class="comment">     * 第一个元素为-1</span></span><br><span class="line"><span class="comment">     * ABCDABD</span></span><br><span class="line"><span class="comment">     * -&gt;</span></span><br><span class="line"><span class="comment">     * 0,0,0,0,1,2,0（最大公共长度数组）</span></span><br><span class="line"><span class="comment">     * -&gt;</span></span><br><span class="line"><span class="comment">     * -1,0,0,0,0,1,2（next数组）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> p_len = p.length();</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; p_len<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">-1</span> || p[j] == p[k])</span><br><span class="line">        &#123;</span><br><span class="line">            k++;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">if</span> (p[j] != p[k])</span><br><span class="line">                next[j] = k;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                next[j] = next[k];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            k = next[k];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; KmpSearch(<span class="built_in">string</span> a, <span class="built_in">string</span> b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * kmp算法去找匹配字符串在原字符串的起点位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index;</span><br><span class="line">    <span class="keyword">int</span> big_len = a.length();</span><br><span class="line">    <span class="keyword">int</span> small_len = b.length();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next(b.length(), <span class="number">0</span>);</span><br><span class="line">    GetNext(b, next);</span><br><span class="line">    <span class="keyword">while</span> (i &lt; big_len &amp;&amp; j &lt; small_len)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || a[i] == b[j])</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//如果当前元素不匹配，将匹配字符串的位置回退到前一子字符串的公共前缀的后一个元素</span></span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (j == small_len)</span><br><span class="line">        &#123;</span><br><span class="line">            index.push_back(i-j);</span><br><span class="line">            j = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; NormalSearch(<span class="built_in">string</span> a, <span class="built_in">string</span> b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 传统方法去找匹配字符串在原字符串的起点位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index;</span><br><span class="line">    <span class="keyword">int</span> big_len = a.length();</span><br><span class="line">    <span class="keyword">int</span> small_len = b.length();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; big_len &amp;&amp; j &lt; small_len)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] == b[j])</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (j == small_len)</span><br><span class="line">        &#123;</span><br><span class="line">            index.push_back(i-j);</span><br><span class="line">            j = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">Kmp</span><span class="params">(<span class="built_in">string</span> a, <span class="built_in">string</span> b, <span class="built_in">string</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index = KmpSearch(a, b);</span><br><span class="line">    <span class="comment">// vector&lt;int&gt; index = NormalSearch(a, b);</span></span><br><span class="line">    <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">int</span> change_index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> ( ; i &lt; a.length(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i == index[change_index])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; c.length(); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                res += c[j];</span><br><span class="line">            &#125;</span><br><span class="line">            i += b.length()<span class="number">-1</span>;</span><br><span class="line">            change_index++;</span><br><span class="line">            <span class="keyword">if</span> (change_index == index.size())</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            res += a[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; a.length())</span><br><span class="line">    &#123;</span><br><span class="line">        res += a[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a = <span class="string">"eiqwuhfiqwheofsalknfa*yanganzhe*ashifeqwnfanzhejfoiaejwor*yanganzhe*idasho"</span>;</span><br><span class="line">    <span class="built_in">string</span> b = <span class="string">"yanganzhe"</span>;</span><br><span class="line">    <span class="built_in">string</span> c = <span class="string">"Avery"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"原字符串: "</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> res = Kmp(a, b, c);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"新字符串: "</span> &lt;&lt; res;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>说一下对反向传播的理解。</li>
+</ol>
+<p>   神经网络的目的就是拟合，即给定一些样本点，通过合适的函数曲线去拟合关系变化。学习的目的就是通过调整函数中的参数，使得最终所得的结果与预想的结果之间的差距越来越小。大多数的实际问题都是非凸的，即存在很多局部最小值，通过简单的梯度下降方法就可以有效求解出最优结果。其中链式法则在高维情况时就变成了Jacobian矩阵乘法。</p>
+<ol>
+<li>介绍下Adam优化方法。</li>
+</ol>
+<p>  结合了动量法和RMSprop的特征，增加了自适应学习率</p>
+<ol>
+<li>如何防止过拟合效应？有哪些方法。</li>
+</ol>
+<p>   引入正则化、Dropout使神经元随机失活、增加样本数量、提前终止训练、加入BN层。</p>
+<ol>
+<li>如何防止梯度爆炸和梯度消失？</li>
+</ol>
+<p>   预训练加微调、权重正则化、ReLU激活函数、加入BN层、引入残差结构。</p>
+<p>   梯度剪切（设置一个梯度剪切阈值，更新梯度时如果超过这个阈值，那么就限制在这个范围之内，防止梯度爆炸）</p>
+<p>   LSTM（每次更新参数时，单元会保存前几次训练的残留记忆，会对当前更新过程产生影响）</p>
+<ol>
+<li>ResNet中是如何防止梯度爆炸或消失的问题的？</li>
+</ol>
+<p>  使用ReLU激活函数、使用跳跃连接。</p>
+<ol>
+<li>$1*1$卷积核的作用。</li>
+</ol>
+<p>  可以起到一个跨通道聚合特征的作用，同时可以起升维和降维的作用。</p>
+<ol>
+<li>在实验中是如何解决损失值不收敛的问题？</li>
+</ol>
+<p>  对数据做归一化、检查梯度、对数据进行预处理、使用正则化、Batch Size太大、学习率太大或太小、激活函数不适合、梯度消失问题、参数初始化问题（面试官和我讨论了很久，他说权重初始化并不影响损失的收敛）、网络太深。</p>
+<ol>
+<li>有三个球筒A、B、C，每个筒都包含三种不同颜色的球，分别为红色、蓝色、白色，每个筒中每个颜色球的个数为$r_i,b_i,w_i(i=1,2,3)$，问题：从所有筒中抽取一个球，结果为红色，求其属于A筒的概率。</li>
+</ol>
+<p>   所有颜色球的总数为：$ sum=\sum r_i+\sum b_i+\sum w_i $</p>
+<p>   红色球的概率为：$ p_r=\sum r_i/sum $</p>
+<p>   蓝色球的概率为：$ p_b=\sum b_i/sum $</p>
+<p>   白色球的概率为：$ p_w=\sum w_i/sum $</p>
+<p>   球属于A筒的概率为：$ p_A=(r_1+b_1+w_1)/sum $</p>
+<p>   球属于B筒的概率为：$ p_B=(r_2+b_2+w_2)/sum $</p>
+<p>   球属于C筒的概率为：$ p_C=(r_3+b_3+w_3)/sum $</p>
+<p>   第i个筒中红球的概率为：$ p(r|i)=r_i/(r_i+b_i+w_i) $</p>
+<p>   第i个筒中蓝球的概率为：$ p(b|i)=b_i/(r_i+b_i+w_i) $</p>
+<p>   第i个筒中白球的概率为：$ p(w|i)=w_i/(r_i+b_i+w_i) $</p>
+<p>   从所有筒中抽取一个球，结果为红色，对应于A筒的概率为：（贝叶斯公式）</p>
+<script type="math/tex; mode=display">p(A_i|B)=\frac{p(B|A_i)p(A_i)}{\sum_ip(B|A_i)p(A_i)}</script><script type="math/tex; mode=display">p(tube=A|ball=red)=\frac{P_{ball=red|tube=A}\cdot P_{tube=A}}{\sum_{A,B,C}P_{ball=red|tude=i}\cdot P_{tude=i}}=\frac{p(r|A)\cdot p(A)}{p(r|A)\cdot p(A)+p(r|B)\cdot p(B)+p(r|C)\cdot p(C)}</script><p>   即结果为：$ \frac{r_1}{r_1+r_2+r_3}$</p>
+<ol>
+<li>了解过哪些机器学习方法。</li>
+</ol>
+<p>   逻辑回归、支持向量机、决策树、主成分分析。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

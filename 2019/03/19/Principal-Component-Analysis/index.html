@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Principal Component Analysis - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCA算法的实现"><span class="toc-text">PCA算法的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于特征值分解协方差矩阵实现PCA算法"><span class="toc-text">基于特征值分解协方差矩阵实现PCA算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于SVD分解协方差矩阵实现PCA算法"><span class="toc-text">基于SVD分解协方差矩阵实现PCA算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCA算法的理论"><span class="toc-text">PCA算法的理论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大方差理论"><span class="toc-text">最大方差理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主成分个数"><span class="toc-text">主成分个数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现-Java"><span class="toc-text">代码实现(Java)</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Principal Component Analysis
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-19 21:27:28</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Machine Learning" title="Machine Learning">Machine Learning</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <blockquote>
+<p>PCA(Principal Component Analysis)，即主成分分析方法，是一种运用广泛的数据降维算法。PCA的主要思想是将N维特征映射到K维空间上，这K维空间中的特征是全新的正交特征，即为主成分，是在原有N维特征空间的基础上重新构造出来的K维特征。PCA的工作就是从原始维度空间中按序找出一组相互正交的坐标轴，坐标轴的选择与数据是密切相关的。首先找出原始数据中方差最大的方向定为第一个坐标轴，其次在第一个坐标轴正交的平面上找到使得数据方差最大的方向定为第二个坐标轴，然后在与之前两个坐标轴都正交的平面上找到方差最大的方向定位第三个坐标轴，以此类推，得到N个坐标轴。其中大部分方差都在前K个坐标轴中，其余几乎为零。所以保留前K个坐标轴，即保留包含大部分方差的维度，忽略其余为度，实现对数据降维的目的。</p>
+</blockquote>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>找到方差最大的K个维度的方法是计算原始数据的<strong>协方差矩阵</strong>，之后得到矩阵的特征值和特征向量，选择特征值最大的，即方差最大的K个特征所对应的特征向量，将这些特征向量组合成一个矩阵，即完成了将原始数据转换到新的维度空间的目的。</p>
+<p>样本$X$与样本$Y$的协方差计算方法如下：</p>
+<script type="math/tex; mode=display">Cov(X,Y)=E[(X-E(X))(Y-E(Y))]=\frac{1}{n-1}\sum^n_{i=1}(x_i-\bar{x})(y_i-\bar{y})</script><p>对于三维样本数据$X,Y,Z$，计算协方差就转化为计算其协方差矩阵：</p>
+<script type="math/tex; mode=display">Cov(X,Y,Z)=\begin{bmatrix} Conv(X,X)&Conv(X,Y)&Conv(X,Z)\\Conv(Y,X)&Conv(Y,Y)&Conv(Y,Z)\\Conv(Z,X)&Conv(Z,Y)&Conv(Z,Z) \end{bmatrix}</script><h3 id="PCA算法的实现"><a href="#PCA算法的实现" class="headerlink" title="PCA算法的实现"></a>PCA算法的实现</h3><h4 id="基于特征值分解协方差矩阵实现PCA算法"><a href="#基于特征值分解协方差矩阵实现PCA算法" class="headerlink" title="基于特征值分解协方差矩阵实现PCA算法"></a>基于特征值分解协方差矩阵实现PCA算法</h4><p><strong>输入</strong>为数据集$X={x_1,x_2,x_3,…,x_n}​$。</p>
+<ol>
+<li>将每一个特征减去平均值，即去中心化</li>
+<li>计算协方差矩阵$\frac{1}{n}XX^T​$</li>
+<li>用<strong>特征值分解法</strong>求协方差矩阵的特征值和特征向量</li>
+<li>对特征值进行排序，选取最大的k个特征值</li>
+<li>将其所对应的k个特征向量作为行向量组合起来形成特征向量矩阵P</li>
+<li>将原始数据转换到新的特征空间中，即$Y=PX​$</li>
+</ol>
+<h4 id="基于SVD分解协方差矩阵实现PCA算法"><a href="#基于SVD分解协方差矩阵实现PCA算法" class="headerlink" title="基于SVD分解协方差矩阵实现PCA算法"></a>基于SVD分解协方差矩阵实现PCA算法</h4><p><strong>输入</strong>为数据集$X={x_1,x_2,x_3,…,x_n}$。</p>
+<ol>
+<li>将每一个特征减去平均值，即去中心化</li>
+<li>计算协方差矩阵$\frac{1}{n}XX^T$</li>
+<li>通过<strong>SVD</strong>计算协方差矩阵的特征值和特征向量</li>
+<li>对特征值进行排序，选取最大的k个特征值</li>
+<li>将其所对应的k个特征向量作为行向量组合起来形成特征向量矩阵P</li>
+<li>将原始数据转换到新的特征空间中，即$Y=PX$</li>
+</ol>
+<h3 id="PCA算法的理论"><a href="#PCA算法的理论" class="headerlink" title="PCA算法的理论"></a>PCA算法的理论</h3><h4 id="最大方差理论"><a href="#最大方差理论" class="headerlink" title="最大方差理论"></a>最大方差理论</h4><p>在信号处理中，认为信号具有较大的方差，而噪声具有较小的方差，信噪比就是信号与噪声的方差比，即越大越好。如果信号在$u_1$上的投影方差较大，在$u_2$上的投影方差较小，那么可以认为$u_2$上的投影是由噪声引起的。则最好的降维结果就是降维之后每一维的样本方差都很大。</p>
+<h4 id="主成分个数"><a href="#主成分个数" class="headerlink" title="主成分个数"></a>主成分个数</h4><script type="math/tex; mode=display">\frac{\frac{1}{m}\sum^m_{i=1}\parallel x^{(i)}-x^{(i)}_{approx}\parallel^2}{\frac{1}{m}\sum^m_{i=1}\parallel x^{(i)}\parallel^2}\le t</script><p>其中$x_{approx}$表示投影后的位置，选取满足上式条件的最小k值。其中$t$由自己决定，当$t=0.01$则代表PCA算法保留99%的主要信息。</p>
+<h3 id="代码实现-Java"><a href="#代码实现-Java" class="headerlink" title="代码实现(Java)"></a>代码实现(Java)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Jama.Matrix;</span><br><span class="line"><span class="keyword">import</span> com.sun.source.tree.Tree;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PCA</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> threshold = <span class="number">0.95</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[][] meanToZero(<span class="keyword">double</span>[][] data) &#123;</span><br><span class="line">        <span class="keyword">int</span> rows = data.length;</span><br><span class="line">        <span class="keyword">int</span> cols = data[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">double</span>[] eachRowSum = <span class="keyword">new</span> <span class="keyword">double</span>[cols];</span><br><span class="line">        <span class="keyword">double</span>[] eachRowAve = <span class="keyword">new</span> <span class="keyword">double</span>[cols];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; rows; j++) &#123;</span><br><span class="line">                eachRowSum[i] += data[j][i];</span><br><span class="line">            &#125;</span><br><span class="line">            eachRowAve[i] = eachRowSum[i] / rows;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span>[][] newData = <span class="keyword">new</span> <span class="keyword">double</span>[rows][cols];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; rows; j++) &#123;</span><br><span class="line">                newData[j][i] = data[j][i] - eachRowAve[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> newData;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[][] getCoveMatrix(<span class="keyword">double</span>[][] matrix) &#123;</span><br><span class="line">        <span class="keyword">int</span> rows = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">double</span>[][] covMatrix = <span class="keyword">new</span> <span class="keyword">double</span>[cols][cols];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++) &#123;</span><br><span class="line">                <span class="keyword">double</span> temp = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; rows; k++) &#123;</span><br><span class="line">                    temp += matrix[k][i] * matrix[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">                covMatrix[i][j] = temp / rows;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> covMatrix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[][] featureVal(<span class="keyword">double</span>[][] matrix) &#123;</span><br><span class="line">        Matrix a = <span class="keyword">new</span> Matrix(matrix);</span><br><span class="line">        <span class="keyword">double</span>[][] res = a.eig().getV().getArray();</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Matrix <span class="title">getPrincipalComponent</span><span class="params">(<span class="keyword">double</span>[][] preArray, <span class="keyword">double</span>[][] featureVal, <span class="keyword">double</span>[][] featureVec)</span> </span>&#123;</span><br><span class="line">        Matrix a = <span class="keyword">new</span> Matrix(featureVec);</span><br><span class="line">        <span class="keyword">double</span>[][] featureVecT = a.transpose().getArray();</span><br><span class="line">        Map&lt;Integer, <span class="keyword">double</span>[]&gt; principalMap = <span class="keyword">new</span> HashMap&lt;Integer, <span class="keyword">double</span>[]&gt;();</span><br><span class="line">        TreeMap&lt;Double, <span class="keyword">double</span>[]&gt; featureMap = <span class="keyword">new</span> TreeMap&lt;Double, <span class="keyword">double</span>[]&gt;(Collections.reverseOrder());</span><br><span class="line">        <span class="keyword">double</span> feaValSum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>, n = featureVal.length;</span><br><span class="line">        <span class="keyword">double</span>[] featureValArray = <span class="keyword">new</span> <span class="keyword">double</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i == j) &#123;</span><br><span class="line">                    featureValArray[index] = featureVal[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; featureVecT.length; i++) &#123;</span><br><span class="line">            <span class="keyword">double</span>[] val = <span class="keyword">new</span> <span class="keyword">double</span>[featureVecT[<span class="number">0</span>].length];</span><br><span class="line">            val = featureVecT[i];</span><br><span class="line">            featureMap.put(featureValArray[i], val);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            feaValSum += featureValArray[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> principalComponentNum = <span class="number">0</span>;</span><br><span class="line">        List&lt;Double&gt; pcFeaVal = <span class="keyword">new</span> ArrayList&lt;Double&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">double</span> key : featureMap.keySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(tmp / feaValSum &lt;= threshold) &#123;</span><br><span class="line">                tmp += key;</span><br><span class="line">                pcFeaVal.add(key);</span><br><span class="line">                principalComponentNum++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"\n"</span> + <span class="string">"特征阈值："</span> + threshold);</span><br><span class="line">        System.out.println(<span class="string">"得到主成分个数："</span> + principalComponentNum + <span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pcFeaVal.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(featureMap.containsKey(pcFeaVal.get(i))) &#123;</span><br><span class="line">                principalMap.put(i, featureMap.get(pcFeaVal.get(i)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span>[][] principalArray = <span class="keyword">new</span> <span class="keyword">double</span>[principalMap.size()][];</span><br><span class="line">        Iterator&lt;Map.Entry&lt;Integer, <span class="keyword">double</span>[]&gt;&gt; it = principalMap.entrySet().iterator();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; it.hasNext(); i++) &#123;</span><br><span class="line">            principalArray[i] = it.next().getValue();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Matrix principalMatrix = <span class="keyword">new</span> Matrix(principalArray);</span><br><span class="line">        <span class="keyword">return</span>  principalMatrix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Matrix <span class="title">getRes</span><span class="params">(<span class="keyword">double</span>[][] pre, Matrix matrix)</span> </span>&#123;</span><br><span class="line">        Matrix preMatrix = <span class="keyword">new</span> Matrix(pre);</span><br><span class="line">        Matrix res = preMatrix.times(matrix.transpose());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        PCA pca = <span class="keyword">new</span> PCA();</span><br><span class="line">        <span class="comment">//获得样本集</span></span><br><span class="line">        <span class="keyword">double</span>[][] data = <span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">2</span>][<span class="number">4</span>];</span><br><span class="line">        data[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">5.1</span>;</span><br><span class="line">        data[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">3.5</span>;</span><br><span class="line">        data[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1.4</span>;</span><br><span class="line">        data[<span class="number">0</span>][<span class="number">3</span>] = <span class="number">0.2</span>;</span><br><span class="line">        data[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">4.9</span>;</span><br><span class="line">        data[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">3.0</span>;</span><br><span class="line">        data[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">1.4</span>;</span><br><span class="line">        data[<span class="number">1</span>][<span class="number">3</span>] = <span class="number">0.2</span>;</span><br><span class="line">        System.out.println(<span class="string">"--------------------------------------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"原数据: "</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; data[i].length; j++) &#123;</span><br><span class="line">                System.out.print(data[i][j]);</span><br><span class="line">                System.out.print(<span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"--------------------------------------------"</span>);</span><br><span class="line">        <span class="comment">//均值为零矩阵</span></span><br><span class="line">        <span class="keyword">double</span>[][] averageArray = pca.meanToZero(data);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//协方差矩阵</span></span><br><span class="line">        <span class="keyword">double</span>[][] varMatrix = pca.getCoveMatrix(averageArray);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//特征值矩阵</span></span><br><span class="line">        <span class="keyword">double</span>[][] eigenvalueMatrix = pca.featureVal(varMatrix);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//特征向量矩阵</span></span><br><span class="line">        <span class="keyword">double</span>[][] eigenVectorMatrix = pca.featureVal(varMatrix);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//主成分矩阵</span></span><br><span class="line">        Matrix principalMatrix = pca.getPrincipalComponent(data, eigenvalueMatrix, eigenVectorMatrix);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//降维后矩阵</span></span><br><span class="line">        Matrix resultMatrix = pca.getRes(data, principalMatrix);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> c = resultMatrix.getColumnDimension(); <span class="comment">//列数</span></span><br><span class="line">        <span class="keyword">int</span> r = resultMatrix.getRowDimension();<span class="comment">//行数</span></span><br><span class="line">        System.out.println(resultMatrix.getRowDimension() + <span class="string">","</span> + resultMatrix.getColumnDimension());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Support Vector Machine - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM理论部分"><span class="toc-text">SVM理论部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#边界概念的引入-Margins"><span class="toc-text">边界概念的引入(Margins)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#赋予数据标记"><span class="toc-text">赋予数据标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#边界的函数性-Functional-和几何性-Geometric"><span class="toc-text">边界的函数性(Functional)和几何性(Geometric)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#边界的优化"><span class="toc-text">边界的优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日算子"><span class="toc-text">拉格朗日算子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类器的优化"><span class="toc-text">分类器的优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数"><span class="toc-text">核函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则化和不可分实例"><span class="toc-text">正则化和不可分实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SMO算法"><span class="toc-text">SMO算法</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Support Vector Machine
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-20 21:40:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Machine Learning" title="Machine Learning">Machine Learning</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <blockquote>
+<p>SVM(Support Vector Machine)，即支持向量机，是一种广泛应用的以监督学习为模式的分类算法。它以边界为出发点，通过最大化边界距离来完成数据分类工作，并使用拉格朗日进行优化，核函数的引入赋予了SVM分类高维特征的力量，最终通过SMO算法有效的实施了SVM的思想。</p>
+</blockquote>
+<h3 id="SVM理论部分"><a href="#SVM理论部分" class="headerlink" title="SVM理论部分"></a>SVM理论部分</h3><h4 id="边界概念的引入-Margins"><a href="#边界概念的引入-Margins" class="headerlink" title="边界概念的引入(Margins)"></a>边界概念的引入(Margins)</h4><p>由逻辑回归可知，$p(y=1|x;\theta)​$的概率由$h_\theta(x)=g(\theta^Tx)​$决定，如果$g(\theta^Tx)\ge0.5​$，即$\theta^Tx\ge0​$，则将被预测为1。所以说$\theta^Tx​$越大，$h_\theta(x)​$就越大，即$\theta^Tx\gg0​$时可以认定$y=1​$，$\theta^Tx\ll0​$时可以认定$y=0​$。</p>
+<center><img src="/2019/03/20/Support-Vector-Machine/1.png" width="300" height="300" title="决策边界"></center>
+
+<p>上图中，x表示正样本，o表示负样本，中间的分界线即为决策边界(decision boundary)，也就是$\theta^Tx=0$所划分的线，图中有三个点A、B、C。</p>
+<p>A点离决策边界很远，基本上会被分类为正样本，而C点离决策边界很近，很大可能被误分类为负样本。所以说，我们会对A的分类结果很自信，而对于C的分类结果就会产生怀疑。</p>
+<p>所以，当给定一组数据进行分类时，我们希望决策边界不光能将数据分类正确，还希望每一个数据都离决策边界非常远，这样就能确信我们的分类结果时正确的。这就是所谓的决策边界。</p>
+<h4 id="赋予数据标记"><a href="#赋予数据标记" class="headerlink" title="赋予数据标记"></a>赋予数据标记</h4><p>定义类别标签为$y\in\{-1,1\}$，用参数$\omega,b$代替线性分类器中的参数$\theta$，则决策函数为：</p>
+<script type="math/tex; mode=display">h_{\omega,b}(x)=g(\omega^Tx+b)=\left\{\begin{aligned}1&  \ z\ge0 \\ 0 & \ z<0 \end{aligned}\right. ​</script><p>符号$b$代替了$\theta_0$，符号$\omega$代替了$[\theta_1…\theta_n]^T$，为了一致性，将$x_0=1$加入到输入特征中。</p>
+<h4 id="边界的函数性-Functional-和几何性-Geometric"><a href="#边界的函数性-Functional-和几何性-Geometric" class="headerlink" title="边界的函数性(Functional)和几何性(Geometric)"></a>边界的函数性(Functional)和几何性(Geometric)</h4><p><strong>函数边界</strong></p>
+<p>给定一个训练样本$(x^{(i)},y^{(i)})$，定义函数性边界为：</p>
+<script type="math/tex; mode=display">\hat{\gamma}^{(i)}=y^{(i)}(\omega^Tx+b) ​</script><p>当$y^{(i)}(\omega^Tx+b)&gt;0​$时，说明预测结果是正确的。当函数性边界非常大时，说明此分类模型性能十分好，即：</p>
+<p>当$y^{(i)}=1$时，为了让函数性边界非常大，需要$\omega^Tx+b$返回一个非常大的正数值；当$y^{(i)}=-1$时，为了让函数性边界非常大，需要$\omega^Tx+b$返回一个非常小的负数值。</p>
+<p>如果仅是将参数$\omega,b$扩大任意尺度，并不会改变$h_{\omega,b}(x)$的值，所以对它们进行任意尺度变化，并不会改变最终的分类性能。</p>
+<p>最终的$\hat{\gamma}​$为所有训练集中最小的$\hat{\gamma}^{(i)}​$。</p>
+<p><strong>几何边界</strong></p>
+<center><img src="/2019/03/20/Support-Vector-Machine/2.png" width="300" height="300" title="几何边界"></center>
+
+<p>其中，图中A点为正样本，它到决策边界的距离$ \gamma^{(i)}​$是直线段AB的长度。如何去求$ \gamma^{(i)}​$的值呢？</p>
+<p>$ \frac{\omega}{\parallel \omega\parallel} $是一个单位长度的向量，与$ \omega $具有相同的方向。假设A点代表$ x^{(i)} $，且B点可以通过$x^{(i)}-\gamma^{(i)}\cdot\frac{\omega}{\parallel \omega\parallel}$来得到。其中B点在决策边界上，所有在决策边界上的数据都满足$w^Tx+b=0$的条件，因此可以得到：</p>
+<script type="math/tex; mode=display">w^T(x^{(i)}-\gamma^{(i)}\frac{\omega}{\parallel \omega\parallel})+b=0</script><p>求解$\gamma^{(i)}$，结果为：</p>
+<script type="math/tex; mode=display">w^Tx^{(i)}+b=\gamma^{(i)}\frac{w^Tw}{\parallel \omega\parallel}=\gamma^{(i)}\frac{\parallel \omega\parallel^2}{\parallel \omega\parallel}</script><script type="math/tex; mode=display">\gamma^{(i)}=\frac{w^Tx^{(i)}+b}{\parallel \omega\parallel}=(\frac{\omega}{\parallel \omega\parallel})^Tx^{(i)}+\frac{b}{\parallel \omega\parallel}</script><p>给定一个训练样本$(x^{(i)},y^{(i)})​$，定义几何性边界为：</p>
+<script type="math/tex; mode=display">\gamma^{(i)}=y^{(i)}((\frac{\omega}{\parallel\omega\parallel})^Tx^{(i)}+\frac{b}{\parallel\omega\parallel}) ​</script><p>其中当$\parallel\omega\parallel=1​$时，几何性边界和函数性边界一致，通过这种方式将两种边界联合在一起。</p>
+<h4 id="边界的优化"><a href="#边界的优化" class="headerlink" title="边界的优化"></a>边界的优化</h4><p>如何最大化决策边界，可以通过以下优化方法：</p>
+<script type="math/tex; mode=display">max_{\gamma,\omega,b}\ \ \ \gamma ​</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ \ \ \ \ \ \ \ y^{(i)}(\omega^Tx^{(i)}+b)\ge\gamma,\ \ i=1,…,m​</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \parallel w\parallel=1 ​</script><p>然而，由于$\parallel w\parallel=1​$的限制，使得此问题是一个非凸优化，无法使用标准优化方法去求解。为了更好的求解，将上式转变为：</p>
+<script type="math/tex; mode=display">max_{\hat{\gamma},\omega,b}\ \ \ \frac{\hat{\gamma}}{\parallel \omega\parallel} ​</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ \ \ \ \ \ \ \ y^{(i)}(\omega^Tx^{(i)}+b)\ge\hat{\gamma},\ \ i=1,…,m​</script><p>从此，优化问题转变为最大化$\frac{\hat{\gamma}}{\parallel \omega\parallel} $，并且消除了$\parallel w\parallel=1$的限制。但是目标函数$\frac{\hat{\gamma}}{\parallel \omega\parallel} $仍然是一个非凸优化问题。</p>
+<p>由于对参数$\omega,b$可以进行任意尺度的变化，且不影响最终分类器性能。那么我们可以引入一个比例约束，通过限制参数$\omega,b$使得训练集的函数边界为1，即$\hat{\gamma}=1$。</p>
+<p>那么最大化$\frac{\hat{\gamma}}{\parallel \omega\parallel}$就可以转化为最大化$\frac{1}{\parallel \omega\parallel}$，也就等于最小化$\parallel \omega\parallel^2$，即：</p>
+<script type="math/tex; mode=display">min_{\omega,b}\ \ \ \ \ \ \frac{1}{2}\parallel \omega\parallel^2 ​</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ \ \ \ \ \ \ \ y^{(i)}(\omega^Tx^{(i)}+b)\ge1,\ \ i=1,…,m​</script><p>这样就把无法优化的问题有效的解决了，上式是一个线性约束的二次凸优化问题，给予了我们解决优化边界分类器的方法。接下来使用拉格朗日方法去解决这个问题。</p>
+<h4 id="拉格朗日算子"><a href="#拉格朗日算子" class="headerlink" title="拉格朗日算子"></a>拉格朗日算子</h4><p>拉格朗日乘法是为了解决如下问题：</p>
+<script type="math/tex; mode=display">min_\omega\ \ \ f(\omega)</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ h_i(\omega)=0,\ \ i=1,…,l.</script><ol>
+<li>定义拉格朗日式为：</li>
+</ol>
+<script type="math/tex; mode=display">\mathcal{L}(\omega,\beta)=f(\omega)+\sum^l_{i=1}\beta_ih_i(\omega) ​</script><p>其中，$\beta_i$称为拉格朗日乘数。</p>
+<ol>
+<li>将$\mathcal{L}$的偏导设为零，求解参数$\omega,\beta$：</li>
+</ol>
+<script type="math/tex; mode=display">\frac{\partial{\mathcal{L}}}{\partial{\omega_i}}=0,\frac{\partial{\mathcal{L}}}{\partial{\beta_i}}=0</script><p><strong>对偶问题</strong></p>
+<p>假设要优化以下问题，称之为 <strong>primal</strong> 问题：</p>
+<script type="math/tex; mode=display">min_{\omega}\ \ \ \ \ \ \ \ \ f(\omega)</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ \ \ \ \ \ \ \ g_i(\omega)\le0,\ \ i=1,…,k</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ h_i(\omega)=0,\ \ i=1,…,l.</script><p>首先定义拉格朗日式为：</p>
+<script type="math/tex; mode=display">\mathcal{L}(\omega,\alpha,\beta)=f(\omega)+\sum^k_{i=1}\alpha_ig_i(\omega)+\sum^l_{i=1}\beta_ih_i(\omega) ​</script><p>其中，$\alpha_i,\beta_i$为拉格朗日乘数。</p>
+<p>定义$\theta_{primal}(\omega)=\underset{\alpha,\beta:\alpha_i\ge0}{max}\mathcal{L}(\omega,\alpha,\beta)​$，给定某些$\omega​$，如果违反了约束限制，则：</p>
+<script type="math/tex; mode=display">\theta_{primal}(\omega)=\underset{\alpha,\beta:\alpha_i\ge0}{max}f(\omega)+\sum^k_{i=1}\alpha_ig_i(\omega)+\sum^l_{i=1}\beta_ih_i(\omega)=\infty ​</script><p>如果满足了约束条件，则$\theta_{primal}=f(\omega)$。所以，$\theta_{primal}$ 在$\omega$满足约束的时候与所要优化的问题拥有相同的结果，所以按照 primal 问题所示，得到以下最小化问题：</p>
+<script type="math/tex; mode=display">\underset{\omega}{min}\ \theta_{primal}=\underset{\omega}{min}\ \underset{\alpha,\beta:\alpha_i\ge0}{max} \mathcal{L}(\omega,\alpha,\beta) ​</script><p>它与 primal 优化问题一致。</p>
+<p>定义$\theta_{dual}(\alpha,\beta)=\underset{\omega}{min}\ \mathcal{L}(\omega,\alpha,\beta)$，上述 primal 问题是关于参数$\alpha,\beta$的最大化问题，而此问题是关于参数$\omega$的最小化问题，如果加上 primal 问题的限制，变为 <strong>dual</strong> 优化问题：</p>
+<script type="math/tex; mode=display">\underset{\alpha,\beta:\alpha_i\ge0}{max}\ \theta_{dual}(\alpha,\beta)=\underset{\alpha,\beta:\alpha_i\ge0}{max}\ \underset{\omega}{min}\ \mathcal{L}(\omega,\alpha,\beta) ​</script><p>这就转化为与 primal 问题加上最小化问题一致了，只是把最大化和最小化的位置进行了颠倒，然后 primal 和 dual 问题可以产生以下相关性：</p>
+<script type="math/tex; mode=display">\underset{\alpha,\beta:\alpha_i\ge0}{max}\ \underset{\omega}{min}\ \mathcal{L}(\omega,\alpha,\beta) \ \le\ \underset{\omega}{min}\ \underset{\alpha,\beta:\alpha_i\ge0}{max} \mathcal{L}(\omega,\alpha,\beta)</script><p>特殊情况下，上式取等号。</p>
+<p>基于以上假设，肯定存在参数$ \omega^* $是 primal 问题的结果，$ \alpha^* , \beta^* $是 dual 问题的结果，或者存在同时是 primal 和 dual 两个问题的结果，只要它满足 KKT 条件，即：</p>
+<script type="math/tex; mode=display">\frac{\partial}{\partial{\omega_i}}\mathcal{L}(\omega^*,\alpha^*,\beta^*)=0,\ \ i=1,…,n ​</script><script type="math/tex; mode=display">\frac{\partial}{\partial{\beta_i}}\mathcal{L}(\omega^*,\alpha^*,\beta^*)=0,\ \ i=1,…,l ​</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \alpha^*_ig_i(\omega^*)=0,\ \ i=1,…,k</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ g_i(\omega^*)\le0,\ \ i=1,…,k</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \alpha^*\ge0,\ \ i=1,…,k</script><p>这里隐含着一个条件，当$\alpha&gt;0$时，$g(\omega^*)=0$。这是一个关键条件，表明支持向量机仅有少量的 support vectors。</p>
+<h3 id="分类器的优化"><a href="#分类器的优化" class="headerlink" title="分类器的优化"></a>分类器的优化</h3><p>首先可以把边界的优化函数中约束条件改为：</p>
+<script type="math/tex; mode=display">g_i(\omega)=1-y^{(i)}(\omega^Tx^{(i)}+b)\le0</script><p>则拉格朗日式为：</p>
+<script type="math/tex; mode=display">\mathcal{L}(\omega,b,\alpha)=\frac{1}{2}\parallel \omega\parallel^2-\sum^m_{i=1}\alpha_i[y^{(i)}(\omega^Tx^{(i)}+b)-1] ​</script><p>为了优化此函数，需要先进行关于参数$\omega,b​$的最小化$\mathcal{L}​$工作，去得到$\theta_{dual}​$，即求关于两个参数的偏导并置为零：</p>
+<script type="math/tex; mode=display">\bigtriangledown_\omega\mathcal{L}(\omega,b,\alpha)=\omega-\sum^m_{i=1}\alpha_iy^{(i)}x^{(i)}=0​</script><p>即$\omega=\sum^m_{i=1}\alpha_iy^{(i)}x^{(i)}​$</p>
+<script type="math/tex; mode=display">\bigtriangledown_b\mathcal{L}(\omega,b,\alpha)=\sum^m_{i=1}\alpha_iy^{(i)}=0</script><p>即$\sum^m_{i=1}\alpha_iy^{(i)}=0$</p>
+<p>将以上结果代入原式：</p>
+<script type="math/tex; mode=display">\mathcal{L}(\omega,b,\alpha)=\sum^m_{i=1}\alpha_i-\frac{1}{2}\sum^m_{i,j=1}y^{(i)}y^{(j)}\alpha_i\alpha_j(x^{(i)})^Tx^{(j)} ​</script><p>这样我们得到关于参数$\omega,b$的最小化的优化结果，将其与另两个约束条件结合，得到 dual 优化问题：</p>
+<script type="math/tex; mode=display">\underset{\alpha}{max}\ Dual(\alpha)=\sum^m_{i=1}\alpha_i-\frac{1}{2}\sum^m_{i,j=1}y^{(i)}y^{(j)}\langle x^{(i)},x^{(j)}\rangle ​</script><script type="math/tex; mode=display">s.t.\ \ \alpha_i\ge0,\ \ i=1,…,m</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \sum^m_{i=1}\alpha_iy^{(i)}=0 ​</script><p>最后，在分类预测的时候，给定输入数据$x$，通过上面求得的关于参数$\omega$的等式，可得：</p>
+<script type="math/tex; mode=display">\omega^Tx+b=(\sum^m_{i=1}\alpha_iy^{(i)}x^{(i)})^Tx+b=\sum^m_{i=1}\alpha_iy^{(i)}\langle x^{(i)},x\rangle+b</script><p>其中，$\langle x^{(i)},x\rangle$是将训练集中每个点与输入数据$x$做内积，而有先前可知，仅仅当训练集中的数据是支持向量时，$\alpha_i$才大于零，其它皆为零，所以可以忽略这些，仅考虑将输入数据与支持向量做内积即可，并且支持向量的个数是非常少的。</p>
+<h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4><p>将输入空间映射到另一个空间域的方法就是使用核函数，这种映射关系用$\phi(x)$表示。给定一个特征映射函数$\phi$，定义相关核为：</p>
+<script type="math/tex; mode=display">K(x,z)=\phi(x)^T\phi(z)</script><p>即在算法中当遇到$\langle x,z\rangle$时可以用$K(x,z)$来代替。</p>
+<p>但是$K(x,z)​$的计算量很大，而且$\phi(x)​$的计算量也很大。解决方法是我们可以让 SVM 直接在$\phi​$的高维空间去学习，不需要去计算$\phi(x)​$。</p>
+<p>如果$\phi(x)$和$\phi(z)$很相似，那么其$K(x,z)$值就会很大，否则则很小，那么就可以通过高斯很函数来判断它俩的相似性：</p>
+<script type="math/tex; mode=display">K(x,z)=exp(-\frac{\parallel x-z\parallel^2}{2\sigma^2})</script><p>当核矩阵是对称半正定时，可以说明$K$是一个有效的核。</p>
+<h4 id="正则化和不可分实例"><a href="#正则化和不可分实例" class="headerlink" title="正则化和不可分实例"></a>正则化和不可分实例</h4><p>当得到一个决策边界时，如果加入一个数据会导致决策边界发生很大的变化，那么可能会导致不好的分类结果。为了解决此问题，不对那些异常值敏感，那么可以使用正则化方法：</p>
+<script type="math/tex; mode=display">min_{\gamma,\omega,b}\ \ \ \ \ \ \frac{1}{2}\parallel \omega\parallel^2+C\sum^m_{i=1}\xi_i,\ \ i=1,…,m</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ \ \ \ \ \ \ \ y^{(i)}(\omega^Tx^{(i)}+b)\ge1-\xi_i,\ \ i=1,…,m</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \xi_i\ge0,\ \ i=1,…,m.</script><p>此时，某些异常点被允许边界小于1，如果一个实例的函数边界为$1-\xi_i$，可以对目标函数通过增加$C\xi_i$来进行一个惩罚，参数$C$控制了相关权重与最小化$\parallel \omega\parallel^2$的关系，确保大部分实例数据的函数边界至少为1。</p>
+<p>以上，可以把拉格朗日式改为：</p>
+<script type="math/tex; mode=display">\mathcal{L}(\omega,b,\xi,\alpha,r)=\frac{1}{2}\parallel \omega\parallel^2+C\sum^m_{i=1}\xi_i-\sum^m_{i=1}\alpha_i[y^{(i)}(\omega^Tx^{(i)}+b)-1+\xi_i]-\sum^m_{i=1}r_i\xi_i</script><p>其中，参数$\alpha_i,r_i$是拉格朗日乘子，约束其必须大于等于零。</p>
+<p>求偏导之后，所得的 dual 优化问题为：</p>
+<script type="math/tex; mode=display">\underset{\alpha}{max}\ Dual(\alpha)=\sum^m_{i=1}\alpha_i-\frac{1}{2}\sum^m_{i,j=1}y^{(i)}y^{(j)}\langle x^{(i)},x^{(j)}\rangle</script><script type="math/tex; mode=display">s.t.\ \ 0\le\alpha_i\le C,\ \ i=1,…,m</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \sum^m_{i=1}\alpha_iy^{(i)}=0 ​</script><p>则 KKT 条件可转化为：</p>
+<script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \alpha_i=0\ \Rightarrow\ y^{(i)}(\omega^Tx^{(i)}+b)\ge1 ​</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \alpha_i=C\ \Rightarrow\ y^{(i)}(\omega^Tx^{(i)}+b)\le1 ​</script><script type="math/tex; mode=display">0<\alpha_i<C\ \Rightarrow\ y^{(i)}(\omega^Tx^{(i)}+b)=1</script><h3 id="SMO算法"><a href="#SMO算法" class="headerlink" title="SMO算法"></a>SMO算法</h3><p>SMO(sequential minimal optimization)算法提供了一种有效的方式去解决 dual 问题。</p>
+<p>当使用函数去优化参数时，可以固定其中一个参数，优化另一个参数，直到达到目标点来完成任务。假设参数$\alpha_i$满足约束条件，如果固定$\alpha_2,…,\alpha_m$仅调整$\alpha_1$，是否能达到优化目的？</p>
+<p>答案是否定的，因为参数$\alpha_1y^{(1)}=-\sum^m_{i=2}\alpha_iy^{(i)}$，但改变一次，可能其它所有参数都会发生改变，就不满足我们的方法条件。</p>
+<p>因此，如果要更新参数$\alpha_i$，必须要至少同时更新两个参数才能保证不违反约束条件，所以 SMO 算法可以简单的分为以下步骤：</p>
+<p>Repeat till convergence {</p>
+<p>​    1  选择一堆参数$\alpha_i,\alpha_j$去更新</p>
+<p>​    2 重新计算优化函数 dual ，固定剩下的参数</p>
+<p>}</p>
+<p>为了测试算法的趋势，可以在优化的过程中检查其是否满足 KKT 情况。SMO 算法有效的另一个原因是更新那两个参数的计算十分快。</p>
+<p>固定两个参数后，可得：</p>
+<script type="math/tex; mode=display">\alpha_1y^{(i)}+\alpha_2y^{(2)}=-\sum^m_{i=3}\alpha_iy^{(i)} ​</script><p>右边参数是固定的，只能调整左边，意味着：</p>
+<script type="math/tex; mode=display">\alpha_1y^{(i)}+\alpha_2y^{(2)}=\zeta</script><script type="math/tex; mode=display">\alpha_1=(\zeta-\alpha_2y^{(2)})y^{(1)}</script><script type="math/tex; mode=display">Dual(\alpha_1,\alpha_2,…,\alpha_m)=Dual((\zeta-\alpha_2y^{(2)})y^{(1)},\alpha_2,…,\alpha_m)</script>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

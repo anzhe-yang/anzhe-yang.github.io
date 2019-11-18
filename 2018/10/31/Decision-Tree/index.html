@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Decision Tree - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树算法过程"><span class="toc-text">决策树算法过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3算法"><span class="toc-text">ID3算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法介绍"><span class="toc-text">算法介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法缺陷"><span class="toc-text">算法缺陷</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5算法"><span class="toc-text">C4.5算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法介绍-1"><span class="toc-text">算法介绍</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Decision Tree
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-31 18:09:28</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Machine Learning" title="Machine Learning">Machine Learning</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <blockquote>
+<p>决策树是运用于分类任务的一种树形结构，其中每个内部节点代表某一属性特征，叶节点代表某个类别。决策树的决策过程从根节点开始，将数据与特征节点进行比较，并根据结果选择下一分支，直到叶节点作为最终的分类结果。</p>
+</blockquote>
+<center><img src="/2018/10/31/Decision-Tree/决策树.png" width="300" height="250" title="决策树示例图"></center>
+
+<h3 id="决策树算法过程"><a href="#决策树算法过程" class="headerlink" title="决策树算法过程"></a>决策树算法过程</h3><ol>
+<li>特征节点选择：从训练数据的特征中选择一个特征作为当前节点的分裂依据；</li>
+<li>决策树生成：根据所有特征评估标准，从上至下递归生成子节点，直到数据不可分为止；</li>
+<li>剪枝：应对过拟合问题，通过剪枝来缩小树的结构和规模。</li>
+</ol>
+<h3 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h3><h4 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h4><p>ID3算法的目的是决策树在分裂的时候，能够使得分裂之后的两个分支最终所能代表不同的类别，即分类之后节点的”纯度”越来越高。为了衡量分裂之后节点的”纯度”，使用<strong>信息熵</strong>这个指标，选取使得信息熵增益最大的节点特征进行分裂。</p>
+<p>样本集合$D$中第$k$类样本所占比例为$p_k​$，则信息熵的定义如下：</p>
+<script type="math/tex; mode=display">I(D)=-\sum^{|y|}_{k=1}p_k\log_2^{p_k}</script><p>节点属性$x$有$N$个可能的取值，即${x_1,x_2,x_3,…,x_n}$，而在样本集合$D$中，属性$x$中取值为$x_n$的样本集合记为$D_n$，则利用节点属性$x$对样本集合$D$进行划分所能得到的信息增益为：</p>
+<script type="math/tex; mode=display">G(D,a)=I(D)-\sum_{n=1}^{N}\frac{|D_n|}{|D|}I(D_n)</script><p><strong>信息增益</strong>即表示当知道节点属性$x$的信息时，使得样本集合不确定性减少的程度。所以在ID3算法中，决策树中每个节点是否进行分裂取决于分裂之后的信息增益是否最大化。</p>
+<h4 id="算法缺陷"><a href="#算法缺陷" class="headerlink" title="算法缺陷"></a>算法缺陷</h4><p>当某种类别可取值数目较多时，信息增益属性能够有效衡量分裂的好坏。但是当某种类别只取一种值时，条件熵为零，则信息增益就无法取得好的效果。</p>
+<h3 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h3><h4 id="算法介绍-1"><a href="#算法介绍-1" class="headerlink" title="算法介绍"></a>算法介绍</h4><p>C4.5算法利用<strong>信息增益率</strong>这个指标来衡量节点分裂的好坏，它是将信息增益和属性的固有值综合考虑而产生的指标。</p>
+<p>属性$x$的固有值能够反映出此节点属性最终能够分成的类别数目，当选取$x$作为分裂节点，最终通过此节点所得到的类别数目越多，此节点的固有值就越大，公式如下：</p>
+<script type="math/tex; mode=display">IV(x)=-\sum^N_{n=1}\frac{|D_n|}{|D|}\log_2^{\frac{|D_n|}{|D|}}</script><p>为了改善ID3算法，使得当此节点进行分裂所得到的类别数目越多时，即表明此节点的分裂”纯度”越低，则信息增益率可写为：</p>
+<script type="math/tex; mode=display">G_{ratio}(D,x)=\frac{G(D,x)}{IV(x)}</script><p>而信息增益率其实是对可取类别数目较少的节点特征有所偏爱，即这个节点所得到的类别数目越少，就在此节点进行分裂，容易导致边缘化和极端化。所以C4.5算法不直接采用信息增益率这个判别指标，而是首先选取节点属性的信息增益率高于平均水平的那些作为候选节点，之后从这些候选节点中选择信息增益最高的那个节点作为当前分裂节点。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

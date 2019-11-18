@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Learning a Similarity Metric Discriminatively, with Application to Face Verification - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要内容"><span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络结构"><span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Learning a Similarity Metric Discriminatively, with Application to Face Verification
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-07 18:23:57</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Paper Review" title="Paper Review">Paper Review</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>论文链接：<a href="https://ieeexplore.ieee.org/abstract/document/1467314" target="_blank" rel="noopener">Chopra S, Hadsell R, LeCun Y. Learning a similarity metric discriminatively, with application to face verification[C]//Computer Vision and Pattern Recognition, 2005. CVPR 2005. IEEE Computer Society Conference on. IEEE, 2005, 1: 539-546.</a></p>
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><p>这是一篇介绍<strong>Siamese</strong>网络的论文，提起Siamese网络，一般都会引用这篇文章和《Hamming Distance Metric Learning》。本文中，作者主要提出了一种<strong>方法</strong>是：如何从数据中寻找一种判断相似性的函数，即学习一种相似度度量的方法。方法使用的<strong>场景</strong>是：类别数量很多，在训练中并不知道类别，而且每种类别的训练样本数量很少。解决的<strong>想法</strong>是：学习一种将输入空间映射到目标空间的函数，使得目标空间中的L1范数近似于输入空间的语义距离。网络性能的<strong>评价</strong>是：错误接受的百分比和错误拒绝的百分比。学习的<strong>过程</strong>是：最小化一个有判别能力的损失函数，使相同类别物体的度量小，不同类别物体的度量大。总体思想是一个Metric Learning，即通过距离决定样本之间的关系，距离公式如下：</p>
+<script type="math/tex; mode=display">E_{w}(X_{1},X_{2}) = \mid\mid G_{w}(X_{1}) - G_{w}(X_{2}) \mid\mid</script><p>其中参数为$ \omega $，$X_{1}$和$X_{2}$是一对比较样本。</p>
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/1.PNG" width="300" height="300" title="Siamese网络结构图"></center><br>上图中参数w的两边是完全相同的网络结构，文中使用卷积网络，并共享相同的权值w，输入为一对图像(Y,X1,X2)，其中Y为标签，0为相似，1为不相似。针对不同的输入，分别输出低维空间的结果为$G_{w}(X_{1})$和$G_{w}(X_{2})$且由输入经过网络映射所得到，最终将这两个输出结果使用能量函数$E_{w}$进行比较。</p>
+<p>网络的损失函数，即Siamese网络中的Contrastive Loss为：</p>
+<script type="math/tex; mode=display">\Gamma(w) = \sum_{i=1}^p L(w,(Y,X_{1},X_{2})^i)</script><script type="math/tex; mode=display">L(w,(Y,X_{1},X_{2})^i) = (1-Y)L_{G}(E_{w}(X_{1},X_{2})^i) + YL_{I}(E_{w}(X_{1},X_{2})^i)</script><p>其中p为训练样本数量，$L_{G}$只计算正样本组合的损失，$L_{I}$只计算负样本组合的损失。通过这样分开的设计，可以使当要最小化损失函数时，减少正样本对的能量，增加负样本对的能量，能量也可以理解为距离，距离越小说明两个样本越相似。简单实现的话，只要将正样本组合损失函数设计为单调增加，将负样本组合损失函数设计为单调减少，但有一个前提是不同类别的图像对的距离肯定比相同类别的图像对的距离小。即得到了下列条件的条件一。</p>
+<p>论文中给出了三个条件和一个定理：</p>
+<p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/2.PNG" width="500" height="60" title="Condition 1"></center></p>
+<p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/3.PNG" width="500" height="60" title="Condition 2"></center></p>
+<p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/4.PNG" width="500" height="80" title="Condition 3"></center></p>
+<p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/5.PNG" width="500" height="120" title="Theorem 1"></center><br>之后为了满足这些条件，论文中使用$H(E_{w}^G,E_{w}^I) = L_{G}(E_{w}^G) + L_{I}(E_{w}^I)$作为总体的损失函数，并用下图说明了收敛性：</p>
+<p><center><img src="/2018/10/07/Learning-a-Similarity-Metric-Discriminatively-with-Application-to-Face-Verification/6.PNG" width="300" height="250" title="收敛性"></center><br>之后给出一个精确的对单个样本的损失函数，即对$ L_G $和$ L_I $的定义。此网络最重要的部分就是对这两个单个损失函数的定义，本文中只是给出了一个最初的设想，现在已经不常用了。</p>
+<script type="math/tex; mode=display">L(w,Y,X_{1},X_{2}) = (1-Y)L_{G}(E_{w}) + YL_{I}(E_{w}) = (1-Y)\frac{2}{Q}(E_{w})^2+(Y)2Qe^(-\frac{2.77}{Q}E_{w})</script><p>其中$G_{w}$，$E_{w}$是有界的，Q为常数，是$E_{w}$的上界，使用获得的损失值用梯度反转去更新共享的权值w。</p>
+<p>文中卷积网络的设计参数如下，基础结构按以下顺序。</p>
+<ul>
+<li>$ C_1 $特征图个数为15，大小为$ 50\times40 $，卷积核大小为$ 7\times7 $，训练参数个数为750。</li>
+<li>$ S_2 $特征图个数为15，大小为$ 25\times20 $，感受野大小为$ 2\times2 $，训练参数个数为30。</li>
+<li>$ C_3 $特征图个数为45，大小为$ 20\times15 $，卷积核大小为$ 6\times6 $，训练参数个数为7128。其中部分连接到了$ S_2 $。</li>
+<li>$ S_4 $特征图个数为45，大小为$ 5\times5 $，感受野大小为$ 4\times3 $，训练参数个数为100。</li>
+<li>$ C_5 $特征图个数为250，大小为$ 1\times1 $，卷积核大小为$ 5\times5 $，训练参数个数为312750。全连接到 $ S_4 $。 </li>
+<li>$ F_6 $单元大小为50，训练参数个数为12550。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文主要提出了一种具有判别能力的通过学习复杂的相似度度量的方法，非常适合于那些类别特别多，但训练过程中没有类别信息的任务，同时提出了一种损失函数可以达到上述的效果。本文提出的Siamese网络用于判别两个物体是否相似的任务上具有很好的效果，如<strong>目标跟踪</strong>任务。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

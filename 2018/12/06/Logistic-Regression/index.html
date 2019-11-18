@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YAz Blog">
+    <meta name="keyword" content="vision">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Logistic Regression - Yaz Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Seize the day </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/logo2.png" />
+        </div>
+        <div class="name">
+            <i>Andrew Yang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最佳拟合参数"><span class="toc-text">最佳拟合参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均方误差"><span class="toc-text">均方误差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#激活函数"><span class="toc-text">激活函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策边界"><span class="toc-text">决策边界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代价函数"><span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降"><span class="toc-text">梯度下降</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Seize the day </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Logistic Regression
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-12-06 18:54:28</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Machine Learning" title="Machine Learning">Machine Learning</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>逻辑回归是一种<strong>判别式</strong>模型，与线性回归拟合数值有一定区别。逻辑回归假设因变量服从伯努利分布，而线性回归假设因变量服从高斯分布。通过Sigmoid激活函数引入非线性因素。逻辑回归的目的是<strong>分类</strong>，多用于解决二分类问题，它与多重线性回归分析类似。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>逻辑回归定义为：</p>
+<ul>
+<li><p>假设函数</p>
+<script type="math/tex; mode=display">\hat{y} = sigmoid(\omega^T x + b) = P(y=1|x;\omega)</script></li>
+<li><p>决策函数</p>
+<script type="math/tex; mode=display">y = 1, if P(y=1|x) > 0.5</script></li>
+</ul>
+<h3 id="最佳拟合参数"><a href="#最佳拟合参数" class="headerlink" title="最佳拟合参数"></a>最佳拟合参数</h3><p>以上定义就是逻辑回归的主要思想，那么该如何求最佳参数$ \omega $使得函数充分拟合数据呢？这里使用最优化算法中的梯度上升方法求解，更新参数的公式如下：</p>
+<script type="math/tex; mode=display">\omega_j := \omega_j - \alpha \frac{\partial}{\partial\omega_j}J(\omega) = \omega_j - \alpha \sum_{i=1}^m (h_\omega (x^{(i)}) - y^{(i)})x^{(i)}_j</script><p>其中：$ \alpha $是步长，函数$ h $就为上面的带参数的假设函数。</p>
+<p>更新的过程就是梯度变化的过程，梯度就是函数变化最快的方向。首先初始化参数$ \omega $为单列的1矩阵，在算法中设置一个最大迭代次数，在这个次数内每次计算梯度，并沿此方向更新参数，直到参数达到最优活着次数达到最大。</p>
+<p>代码分析如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradAscent</span><span class="params">(data, label, alpha, maxEpoches, minError)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Gradient Ascent</span></span><br><span class="line"><span class="string">    :param data: m*n </span></span><br><span class="line"><span class="string">    :param label: m*1 </span></span><br><span class="line"><span class="string">    :param alpha: parameter</span></span><br><span class="line"><span class="string">    :param maxEpoches: the number of epoch</span></span><br><span class="line"><span class="string">    :param minError: the minimum of error</span></span><br><span class="line"><span class="string">    :return: optimized parameters</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    m, n = np.shape(data)</span><br><span class="line">    weigh = np.ones((n,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(maxEpoches):</span><br><span class="line">        h = sigmoid(data * weigh)</span><br><span class="line">        error = label - h <span class="comment"># size -&gt; m*1</span></span><br><span class="line">        <span class="keyword">if</span> error &lt; minError: <span class="comment"># smaller than minError</span></span><br><span class="line">        	<span class="keyword">break</span></span><br><span class="line">        <span class="comment"># w = w + a * x^T * error</span></span><br><span class="line">        weigh = weigh + alpha * data.transpose() * error</span><br><span class="line">    <span class="keyword">return</span> weigh</span><br></pre></td></tr></table></figure>
+<h3 id="均方误差"><a href="#均方误差" class="headerlink" title="均方误差"></a>均方误差</h3><p>度量模型性能的一种方法是计算<strong>均方误差</strong>（MSE），公式表示为：</p>
+<script type="math/tex; mode=display">MSE = \frac{1}{2m} \sum_{i}^m (\hat{y}^{(pred)}_i - y^{(label)}_i )^2</script><h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><p>Sigmoid函数定义为：</p>
+<script type="math/tex; mode=display">g(z) = \frac{1}{1+e^{-z}}</script><h3 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h3><p>决策边界因数据的不同分为线性和非线性，由$ \omega^T x = 0 $定义。</p>
+<h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>代价函数$ J(\omega) $是一个标量，可以用来评价模型的性能，数值越小代表模型和参数越符合训练样本。所以，训练的目的就是最小化代价函数$ J(\omega) $，而训练的过程使用的方法就是梯度下降（Gradient Descent）。在逻辑回归中最常用的代价函数是<strong>交叉熵</strong>，定义如下：</p>
+<script type="math/tex; mode=display">J(\omega) = 
+\begin{cases}
+-\log(h_\omega (x))& \text{y=1}\\
+-\log(1-h_\omega (x))& \text{y=0}
+\end{cases}</script><p>其中，$ h_\omega (x) = \frac{1}{1+e^{(-\omega^T x)}} $</p>
+<script type="math/tex; mode=display">J(\omega) = -\frac{1}{m} [\sum_{i}^m (y^{(i)} \log{h_\omega (x^{(i)})} + (1-y^{(i)})\log({1-h_\omega (x^{(i)})})] ​</script><h3 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h3><p>梯度是指代价函数$ J(\omega) $对每个参数的偏导数，而偏导数的正负决定了学习过程中参数的下降方向，学习率$ \alpha $决定了每次变化的步长。之后利用偏导数和学习率进行梯度下降操作，更新其参数。假设代价函数中的参数为$ \theta $，则更新参数的过程如下：</p>
+<script type="math/tex; mode=display">\theta_j = \theta_j - \alpha(\frac{\partial}{\partial\theta_j})J(\theta) = \theta_j - \alpha(\frac{1}{m}\sum_{i=1}^m (h_\theta (x^{(i)}) - y^{(i)})x^{(i)}_j</script>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/author2.jpg">
+        <p>  </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/AnzheYang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/yang-an-zhe-43/activities">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3598641564">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/profile.php?id=100032955360967">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/anzhe-yang">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/安喆-杨-30b294184">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://feelncut.com">Pizi</a></span>
+        <span>/</span>
+        
+        <span><a href="https://www.zhangwenxuan.cn">ZHWX</a></span>
+        <span>/</span>
+        
+        <span><a href="https://martin-danelljan.github.io/">Martin Danelljan</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://anzhe-yang.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
